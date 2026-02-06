@@ -1981,7 +1981,7 @@ void CSandMan::UpdateDrives()
 
 void CSandMan::UpdateForceUSB()
 {
-	if (!theAPI->GetGlobalSettings()->GetBool("ForceUsbDrives", false) || !g_CertInfo.active)
+	if (!theAPI->GetGlobalSettings()->GetBool("ForceUsbDrives", false))
 		return;
 
 	QString UsbSandbox = theAPI->GetGlobalSettings()->GetText("UsbSandbox", "USB_Box");
@@ -2464,14 +2464,7 @@ void CSandMan::OnStatusChanged()
 
 		uchar UsageFlags = 0;
 		if (theAPI->GetSecureParam("UsageFlags", &UsageFlags, sizeof(UsageFlags))) {
-			if (!CERT_IS_TYPE(g_CertInfo, eCertBusiness)) {
-				if ((UsageFlags & (2 | 1)) != 0) {
-					if(g_CertInfo.active)
-						appTitle.append(tr(" for Personal use"));
-					else
-						appTitle.append(tr("   -   for Non-Commercial use ONLY"));
-				}
-			}
+			// All features are free - no usage restriction labels
 		}
 		else { // migrate value form ini to registry // todo remove in later builds
 			int BusinessUse = theConf->GetInt("Options/BusinessUse", 2);
@@ -2559,7 +2552,7 @@ void CSandMan::OnStatusChanged()
 			CheckSupport();
 
 		int WizardLevel = abs(theConf->GetInt("Options/WizardLevel", 0));
-		if (WizardLevel < (!g_CertInfo.active ? SETUP_LVL_3 : (theConf->GetInt("Options/CheckForUpdates", 2) != 1 ? SETUP_LVL_2 : SETUP_LVL_1))) {
+		if (WizardLevel < (theConf->GetInt("Options/CheckForUpdates", 2) != 1 ? SETUP_LVL_2 : SETUP_LVL_1)) {
 			if (!CSetupWizard::ShowWizard(WizardLevel)) { // if user canceled, mark that and do not show again, until there is something new
 				if(QMessageBox::question(NULL, "Sandboxie-Plus", tr("Do you want the setup wizard to be omitted?"), QMessageBox::Yes, QMessageBox::No | QMessageBox::Default) == QMessageBox::Yes)
 					theConf->SetValue("Options/WizardLevel", -SETUP_LVL_CURRENT);
@@ -2931,47 +2924,9 @@ void CSandMan::OnLogSbieMessage(quint32 MsgCode, const QStringList& MsgData, qui
 			m_MissingTemplates[MsgData[1]].insert(MsgData[2]);
 	}
 
-	if ((MsgCode & 0xFFFF) == 6004 || (MsgCode & 0xFFFF) == 6008 || (MsgCode & 0xFFFF) == 6009) // certificate error
+	if ((MsgCode & 0xFFFF) == 6004 || (MsgCode & 0xFFFF) == 6008 || (MsgCode & 0xFFFF) == 6009) // certificate error - no longer generated
 	{
-		QString Message;
-		if ((MsgCode & 0xFFFF) == 6008)
-		{
-			Message = tr("The box %1 is configured to use features exclusively available to project supporters.").arg(MsgData[1]);
-			Message.append(tr("<br /><a href=\"https://sandboxie-plus.com/go.php?to=sbie-get-cert\">Become a project supporter</a>, and receive a <a href=\"https://sandboxie-plus.com/go.php?to=sbie-cert\">supporter certificate</a>"));
-		}
-		else if ((MsgCode & 0xFFFF) == 6009)
-		{
-			Message = tr("The box %1 is configured to use features which require an <b>advanced</b> supporter certificate.").arg(MsgData[1]);
-			if(g_CertInfo.active)
-				Message.append(tr("<br /><a href=\"https://sandboxie-plus.com/go.php?to=sbie-upgrade-cert\">Upgrade your Certificate</a> to unlock advanced features."));
-			else
-				Message.append(tr("<br /><a href=\"https://sandboxie-plus.com/go.php?to=sbie-get-cert\">Become a project supporter</a>, and receive a <a href=\"https://sandboxie-plus.com/go.php?to=sbie-cert\">supporter certificate</a>"));
-		}
-		else
-		{
-			static quint64 iLastCertWarning = 0;
-			if (iLastCertWarning + 60 < QDateTime::currentDateTime().toSecsSinceEpoch()) { // reset after 60 seconds
-				iLastCertWarning = QDateTime::currentDateTime().toSecsSinceEpoch();
-
-				if (!MsgData[2].isEmpty())
-					Message = tr("The program %1 started in box %2 will be terminated in 5 minutes because the box was configured to use features exclusively available to project supporters.").arg(MsgData[2]).arg(MsgData[1]);
-				else
-					Message = tr("The box %1 is configured to use features exclusively available to project supporters, these presets will be ignored.").arg(MsgData[1]);
-				Message.append(tr("<br /><a href=\"https://sandboxie-plus.com/go.php?to=sbie-get-cert\">Become a project supporter</a>, and receive a <a href=\"https://sandboxie-plus.com/go.php?to=sbie-cert\">supporter certificate</a>"));
-
-				//bCertWarning = false;
-			}
-		}
-
-		if (!Message.isEmpty())
-		{
-			ShowMessageBox(this, QMessageBox::Critical, Message);
-			/*msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-			if (msgBox.exec() == QDialogButtonBox::Yes) {
-				OpenUrl(QUrl("https://sandboxie-plus.com/go.php?to=sbie-get-cert"));
-			}*/
-		}
-		// return;
+		// All features are free - certificate error messages are no longer applicable
 	}
 
 	QString ProcessName;
@@ -4304,34 +4259,7 @@ void CSandMan::OnAbout()
 		QPainter painter(&pix);
 		painter.drawPixmap(0, 0, ico.pixmap(128, 128));
 
-		if (g_CertInfo.active)
-		{
-			//painter.setPen(Qt::blue);
-			//painter.drawRect(0, 0, 127, 159);
-
-			QFont font;
-			font.fromString("Cooper Black");
-			//font.setItalic(true);
-
-			font.setPointSize(12);
-			painter.setFont(font);
-			painter.setPen(CSettingsWindow::GetCertColor());
-
-			QString Type = CSettingsWindow::GetCertType();
-			QSize TypeSize = QFontMetrics(painter.font()).size(Qt::TextSingleLine, Type);
-			//painter.drawText((128 - TypeSize.width()) / 2, 128, TypeSize.width(), TypeSize.height(), 0, Type);
-			painter.drawText(0, 128 - 8, 128, TypeSize.height(), Qt::AlignHCenter, Type);
-
-			if (g_CertInfo.level != eCertMaxLevel && g_CertInfo.level != eCertStandard) {
-
-				font.setPointSize(10);
-				painter.setFont(font);
-				painter.setPen(Qt::black);
-
-				QString Level = CSettingsWindow::GetCertLevel();
-				painter.drawText(0, 128 + 8, 120, TypeSize.height(), Qt::AlignRight, Level);
-			}
-		}
+		// Certificate branding removed - all features are free
 
 		msgBox->setIconPixmap(pix);
 

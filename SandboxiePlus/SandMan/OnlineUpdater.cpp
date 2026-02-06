@@ -326,20 +326,7 @@ extern "C" NTSTATUS NTAPI NtQueryInstallUILanguage(LANGID* LanguageId);
 
 bool COnlineUpdater::IsLockRequired()
 {
-	if (theConf->GetBool("Debug/LockedRegion", false))
-		return true;
-
-	if (g_CertInfo.lock_req)
-		return true;
-
-	LANGID LangID = 0;
-	if ((NtQueryInstallUILanguage(&LangID) == 0) && (LangID == 0x0804))
-		return true;
-
-	if (theGUI->m_LanguageId == 0x0804)
-		return true;
-
-	return false;
+	return false; // No lock/cert requirements
 }
 
 void CGetCertJob::Finish(QNetworkReply* pReply)
