@@ -1,4 +1,4 @@
-## Sandboxie Classic installer instructions
+## Sandboxie installer instructions
 
 ### To create Sbie NSIS installer environment
 
@@ -19,7 +19,7 @@
 
 Everything above only needs to be done once. Then your machine should be good to go.
 
-### To create the Sbie Classic installers
+### To create the Sbie installers
 
 The Sbie installer NSI file is [\install\SandboxieVS.nsi](../install/SandboxieVS.nsi).
 
