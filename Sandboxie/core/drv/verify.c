@@ -531,6 +531,7 @@ _FX LONGLONG KphGetDateInterval(CSHORT days, CSHORT months, CSHORT years)
 
 #include "verify.h"
 
+// Certificate checks removed - all features are always enabled
 SCertInfo Verify_CertInfo = { 0 };
 
 _FX NTSTATUS KphValidateCertificate()

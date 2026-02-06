@@ -678,9 +678,9 @@ void COptionsWindow::OnIsolationChanged()
 {
 	if (sender() == ui.chkNoSecurityIsolation) {
 		// we can ignore chkNoSecurityFiltering as it requires chkNoSecurityIsolation
-		if (ui.chkNoSecurityIsolation->isChecked())
-			theGUI->CheckCertificate(this, 0);
-	}
+		if (ui.chkNoSecurityIsolation->isChecked()) {
+			// All features are always enabled
+		}
 
 	UpdateBoxIsolation();
 

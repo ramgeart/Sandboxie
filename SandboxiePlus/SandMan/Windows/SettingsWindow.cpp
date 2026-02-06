@@ -688,10 +688,7 @@ CSettingsWindow::CSettingsWindow(QWidget* parent)
 	connect(ui.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
 	if (!g_CertInfo.active) {
-		//COptionsWindow__AddCertIcon(ui.chkUpdateTemplates);
-		COptionsWindow__AddCertIcon(ui.chkUpdateIssues);
-		COptionsWindow__AddCertIcon(ui.chkRamDisk);
-		COptionsWindow__AddCertIcon(ui.chkSandboxUsb);
+		// All features are always enabled - no cert icons needed
 	}
 
 	this->installEventFilter(this); // prevent enter from closing the dialog
@@ -1360,8 +1357,8 @@ void CSettingsWindow::LoadSettings()
 		ui.cmbUsbSandbox->setCurrentIndex(CurUsbBox);
 		
 		ui.cmbMoTWSandbox->setEnabled(ui.chkSandboxMoTW->isChecked());
-		ui.cmbUsbSandbox->setEnabled(ui.chkSandboxUsb->isChecked() && g_CertInfo.active);
-		ui.treeVolumes->setEnabled(ui.chkSandboxUsb->isChecked() && g_CertInfo.active);
+		ui.cmbUsbSandbox->setEnabled(ui.chkSandboxUsb->isChecked());
+		ui.treeVolumes->setEnabled(ui.chkSandboxUsb->isChecked());
 
 		UpdateDrives();
 
@@ -1427,8 +1424,8 @@ void CSettingsWindow::LoadSettings()
 
 
 	ui.chkNoCheck->setChecked(theConf->GetBool("Options/NoSupportCheck", false));
-	if(ui.chkNoCheck->isCheckable() && !g_CertInfo.expired)
-		ui.chkNoCheck->setVisible(false); // hide if not relevant
+	if(ui.chkNoCheck->isCheckable())
+		ui.chkNoCheck->setVisible(false); // hide - not relevant since all features are free
 
 	ui.chkAutoUpdate->setCheckState(CSettingsWindow__Int2Chk(theConf->GetInt("Options/CheckForUpdates", 2)));
 
@@ -1455,17 +1452,12 @@ void CSettingsWindow::LoadSettings()
 	ui.chkUpdateAddons->setCheckState(CSettingsWindow__Int2Chk(theConf->GetInt("Options/CheckForAddons", 2)));
 	ui.chkUpdateIssues->setCheckState(CSettingsWindow__Int2Chk(theConf->GetInt("Options/CheckForIssues", 2)));
 
-	//ui.chkUpdateTemplates->setEnabled(g_CertInfo.active && !g_CertInfo.expired);
-	ui.chkUpdateIssues->setEnabled(g_CertInfo.active && !g_CertInfo.expired);
+	//ui.chkUpdateTemplates->setEnabled(true);
+	ui.chkUpdateIssues->setEnabled(true);
 }
 
 void CSettingsWindow::OnRamDiskChange()
 {
-	if (sender() == ui.chkRamDisk) {
-		if (ui.chkRamDisk->isChecked())
-			theGUI->CheckCertificate(this, -1);
-	}
-
 	if (ui.chkRamDisk->isChecked() && ui.txtRamLimit->text().isEmpty())
 		ui.txtRamLimit->setText(QString::number(2 * 1024 * 1024));
 
@@ -1490,16 +1482,8 @@ void CSettingsWindow::OnMoTWChange()
 
 void CSettingsWindow::OnVolumeChanged() 
 { 
-	if (sender() == ui.chkSandboxUsb) {
-		if (ui.chkSandboxUsb->isChecked())
-			theGUI->CheckCertificate(this, -1);
-	}
-
-	ui.cmbUsbSandbox->setEnabled(ui.chkSandboxUsb->isChecked() && g_CertInfo.active);
-	ui.treeVolumes->setEnabled(ui.chkSandboxUsb->isChecked() && g_CertInfo.active);
-
-	if (!g_CertInfo.active)
-		return;
+	ui.cmbUsbSandbox->setEnabled(ui.chkSandboxUsb->isChecked());
+	ui.treeVolumes->setEnabled(ui.chkSandboxUsb->isChecked());
 
 	m_VolumeChanged = true; 
 	OnOptChanged();
@@ -1570,7 +1554,7 @@ void CSettingsWindow::UpdateDrives()
 
 void CSettingsWindow::UpdateUpdater()
 {
-	bool bOk = (g_CertInfo.active && !g_CertInfo.expired);
+	bool bOk = true; // All features are always enabled
 	//ui.radLive->setEnabled(false);
 	if (!ui.chkAutoUpdate->isChecked()) 
 	{
@@ -1584,31 +1568,17 @@ void CSettingsWindow::UpdateUpdater()
 	{
 		ui.cmbInterval->setEnabled(true);
 
-		bool bAllowAuto;
-		if (ui.radStable->isChecked() && !bOk) {
-			ui.cmbUpdate->setEnabled(false);
-			ui.cmbUpdate->setCurrentIndex(ui.cmbUpdate->findData("ignore"));
-
-			ui.lblRevision->setText(tr("Supporter certificate required for access"));
-			bAllowAuto = false;
-		} else {
-			ui.cmbUpdate->setEnabled(true);
-
-			ui.lblRevision->setText(QString());
-			bAllowAuto = true;
-		}
+		ui.cmbUpdate->setEnabled(true);
+		ui.lblRevision->setText(QString());
 
 		ui.cmbRelease->setEnabled(true);
 		QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui.cmbRelease->model());
 		for (int i = 1; i < ui.cmbRelease->count(); i++) {
 			QStandardItem* item = model->item(i);
-			item->setFlags(bAllowAuto ? (item->flags() | Qt::ItemIsEnabled) : (item->flags() & ~Qt::ItemIsEnabled));
+			item->setFlags(item->flags() | Qt::ItemIsEnabled);
 		}
 
-		if(!bAllowAuto)
-			ui.lblRelease->setText(tr("Supporter certificate required for automation"));
-		else
-			ui.lblRelease->setText(QString());
+		ui.lblRelease->setText(QString());
 	}
 
 	OnOptChanged();

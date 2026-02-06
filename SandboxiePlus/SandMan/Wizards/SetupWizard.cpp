@@ -14,8 +14,7 @@ CSetupWizard::CSetupWizard(int iOldLevel, QWidget *parent)
 {
     if (iOldLevel < SETUP_LVL_1)
         setPage(Page_Intro, new CIntroPage);
-    if (iOldLevel < SETUP_LVL_3)
-        setPage(Page_Certificate, new CCertificatePage(iOldLevel));
+    // Certificate page removed - all features are free
     if (iOldLevel < SETUP_LVL_1) {
         setPage(Page_UI, new CUIPage);
         setPage(Page_Shell, new CShellPage);
@@ -226,8 +225,6 @@ CIntroPage::CIntroPage(QWidget *parent)
 
 int CIntroPage::nextId() const
 {
-    if(g_Certificate.isEmpty())
-        return CSetupWizard::Page_Certificate;
     return CSetupWizard::Page_UI;
 }
 
@@ -706,7 +703,7 @@ CSBUpdate::CSBUpdate(QWidget *parent)
 
     layout->addItem(new QSpacerItem(10, 10, QSizePolicy::Fixed, QSizePolicy::Expanding), row++, 0);
 
-    m_pBottomLabel = new QLabel(tr("Access to the latest compatibility templates and the online troubleshooting database requires a valid <a href=\"https://sandboxie-plus.com/go.php?to=sbie-cert\">supporter certificate</a>."));
+    m_pBottomLabel = new QLabel(tr("Access to the latest compatibility templates and the online troubleshooting database."));
     connect(m_pBottomLabel, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
     m_pBottomLabel->setWordWrap(true);
     layout->addWidget(m_pBottomLabel, row++, 0, 1, rows);
@@ -719,7 +716,7 @@ void CSBUpdate::initializePage()
     m_pUpdate->setChecked(true);
     m_pStable->setChecked(true);
 
-    m_pBottomLabel->setVisible(!g_CertInfo.active || g_CertInfo.expired);
+    m_pBottomLabel->setVisible(false);
 
     UpdateOptions();
 }
@@ -743,7 +740,7 @@ void CSBUpdate::UpdateOptions()
 
     m_pStable->setEnabled(m_pVersion->isChecked());
     m_pPreview->setEnabled(m_pVersion->isChecked());
-    m_pInsider->setEnabled(CERT_IS_INSIDER(g_CertInfo) && m_pVersion->isChecked());
+    m_pInsider->setEnabled(m_pVersion->isChecked());
 
     m_pHotfixes->setEnabled(m_pVersion->isChecked());
 }

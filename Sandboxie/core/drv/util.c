@@ -563,15 +563,17 @@ void InitFwUuid();
 
 _FX NTSTATUS MyValidateCertificate(void)
 {
-    if(!*g_uuid_str)
-        InitFwUuid();
+    // All features are always enabled - no certificate required
+    Verify_CertInfo.State = 0;
+    Verify_CertInfo.active = 1;
+    Verify_CertInfo.level = eCertMaxLevel;
+    Verify_CertInfo.type = eCertEternal;
+    Verify_CertInfo.opt_sec = 1;
+    Verify_CertInfo.opt_enc = 1;
+    Verify_CertInfo.opt_net = 1;
+    Verify_CertInfo.opt_desk = 1;
 
-    NTSTATUS status = KphValidateCertificate();
-
-    if (status == STATUS_ACCOUNT_EXPIRED)
-        status = STATUS_SUCCESS;
-
-    return status;
+    return STATUS_SUCCESS;
 }
 
 
