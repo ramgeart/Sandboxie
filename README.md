@@ -1,8 +1,5 @@
 # Sandboxie
 
-[![GitHub Release](https://img.shields.io/github/release/sandboxie-plus/Sandboxie.svg)](https://github.com/sandboxie-plus/Sandboxie/releases/latest) [![GitHub Build Status](https://github.com/sandboxie-plus/Sandboxie/actions/workflows/main.yml/badge.svg)](https://github.com/sandboxie-plus/Sandboxie/actions)
-
-[![Roadmap](https://img.shields.io/badge/Roadmap-Link%20-blue?style=for-the-badge)](https://www.wilderssecurity.com/threads/updated-sandboxie-plus-roadmap.456886/) [![Join our Discord Server](https://img.shields.io/badge/Join-Our%20Discord%20Server%20for%20bugs,%20feedback%20and%20more!-blue?style=for-the-badge&logo=discord)](https://discord.gg/S4tFu6Enne)
 
 Sandbox-based isolation software for Windows NT-based operating systems. It creates a secure, isolated virtual environment in which applications can be run or installed without permanently modifying local and mapped drives or the Windows registry.
 
@@ -20,7 +17,7 @@ Sandboxie intercepts system calls at the kernel level to redirect file system, r
 
 ## Download
 
-[Latest Release](https://github.com/sandboxie-plus/Sandboxie/releases/latest)
+[Latest Release](https://github.com/ramgeart/Sandboxie/releases/latest)
 
 ## Architecture
 
@@ -78,13 +75,12 @@ The project uses Visual Studio solution files:
 | 2004 – 2013         | Ronen Tzur       |
 | 2013 – 2017         | Invincea Inc.    |
 | 2017 – 2020         | Sophos Group plc |
-| April 2020 — [open-source release](https://community.sophos.com/sandboxie/f/forum/119641/important-sandboxie-open-source-code-is-available-for-download) | Sophos Ltd. |
 | April 2020 onwards — community fork | David Xanatos |
 
 ## Documentation
 
 - [User Guide](./docs/index.md) — comprehensive usage documentation
-- [Online documentation](https://sandboxie-plus.github.io/sandboxie-docs)
+- [Online documentation]()
 - [Changelog](./CHANGELOG.md)
 - [Contributing](./CONTRIBUTING.md)
 - [Security policy](./SECURITY.md)
