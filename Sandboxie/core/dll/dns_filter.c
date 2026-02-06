@@ -573,14 +573,7 @@ _FX BOOLEAN WSA_InitNetDnsFilter(HMODULE module)
 
         map_init(&WSA_LookupMap, Dll_Pool);
 
-        __declspec(align(8)) SCertInfo CertInfo = { 0 };
-        if (!NT_SUCCESS(SbieApi_QueryDrvInfo(-1, &CertInfo, sizeof(CertInfo))) || !(CertInfo.active && CertInfo.opt_net)) {
-
-            const WCHAR* strings[] = { L"NetworkDnsFilter" , NULL };
-            SbieApi_LogMsgExt(-1, 6009, strings);
-
-            WSA_FilterEnabled = FALSE;
-        }
+        // All features are always enabled - no certificate check needed
     }
 
     //

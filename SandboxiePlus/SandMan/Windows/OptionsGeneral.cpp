@@ -75,34 +75,8 @@ void COptionsWindow::CreateGeneral()
 	connect(ui.lblBoxInfo, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
 
 	ui.lblSupportCert->setVisible(false);
-	if (!g_CertInfo.active)
-	{
-		ui.lblSupportCert->setVisible(true);
-		connect(ui.lblSupportCert, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
 
-		for (int i = 0; i < ui.cmbBoxType->count(); i++)
-		{
-			int BoxType = ui.cmbBoxType->itemData(i, Qt::UserRole).toInt();
-			bool disabled = BoxType != CSandBoxPlus::eDefault;
-
-			QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui.cmbBoxType->model());
-			QStandardItem* item = model->item(i);
-			item->setFlags(disabled ? item->flags() & ~Qt::ItemIsEnabled : item->flags() | Qt::ItemIsEnabled);
-		}
-	}
-
-	if (!g_CertInfo.opt_sec) {
-		QWidget* ExWidgets[] = { ui.chkSecurityMode, ui.chkLockDown, ui.chkRestrictDevices, ui.chkPrivacy, ui.chkUseSpecificity, ui.chkNoSecurityIsolation, ui.chkNoSecurityFiltering, ui.chkHostProtect, NULL };
-		for (QWidget** ExWidget = ExWidgets; *ExWidget != NULL; ExWidget++)
-			COptionsWindow__AddCertIcon(*ExWidget);
-	}
-	if (!g_CertInfo.active)
-		COptionsWindow__AddCertIcon(ui.chkRamBox, true);
-	if (!g_CertInfo.opt_enc) {
-		COptionsWindow__AddCertIcon(ui.chkConfidential, true);
-		COptionsWindow__AddCertIcon(ui.chkEncrypt, true);
-		COptionsWindow__AddCertIcon(ui.chkAllowEfs, true);
-	}
+	// All box types are always enabled - no certificate required
 
 
 	m_HoldBoxType = false;
@@ -891,9 +865,6 @@ void COptionsWindow::UpdateBoxSecurity()
 
 void COptionsWindow::OnSecurityMode()
 {
-	if (ui.chkSecurityMode->isChecked() || (ui.chkLockDown->isEnabled() && ui.chkLockDown->isChecked()) || (ui.chkRestrictDevices->isEnabled() && ui.chkRestrictDevices->isChecked()))
-		theGUI->CheckCertificate(this, 0);
-
 	UpdateBoxSecurity();
 
 	if (sender() == ui.chkSecurityMode && !ui.chkSecurityMode->isChecked()) {
@@ -1201,11 +1172,6 @@ void COptionsWindow::OnVmRead()
 
 void COptionsWindow::OnDiskChanged()
 {
-	if (sender() == ui.chkEncrypt) {
-		if (ui.chkEncrypt->isChecked())
-			theGUI->CheckCertificate(this, 1);
-	}
-
 	if (ui.chkRamBox->isChecked()) {
 		ui.chkEncrypt->setEnabled(false);
 		ui.chkEncrypt->setChecked(false);

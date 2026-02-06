@@ -71,14 +71,9 @@ void COptionsWindow::CreateNetwork()
 	
 	connect(ui.tabsInternet, SIGNAL(currentChanged(int)), this, SLOT(OnInternetTab()));
 
-	if (!g_CertInfo.opt_net) {
-		ui.tabDNS->setEnabled(false);
-		ui.tabNetProxy->setEnabled(false);
-	}
+	// All network features are always enabled
 
 	ui.chkProxyResolveHostnames->setVisible(false);
-	if (g_CertInfo.type != eCertDeveloper && !CERT_IS_TYPE(g_CertInfo, eCertEternal))
-		ui.chkUseProxyThreads->setVisible(false);
 }
 
 void COptionsWindow::OnBlockDns()

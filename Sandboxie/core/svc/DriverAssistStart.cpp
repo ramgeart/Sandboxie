@@ -420,27 +420,8 @@ driver_started:
         }
     }
 
-    NTSTATUS status = SbieApi_ReloadConf(0, SBIE_CONF_FLAG_RELOAD_CERT);
-    if (status == STATUS_CONTENT_BLOCKED) {
-
-        BYTE CertBlocked = 1;
-        SbieApi_Call(API_SET_SECURE_PARAM, 3, L"CertBlocked", &CertBlocked, sizeof(CertBlocked));
-
-        m_instance->m_DriverReady = false;
-    }
-    else {
-
-        BYTE CertBlocked = 0;
-        SbieApi_Call(API_GET_SECURE_PARAM, 3, L"CertBlocked", &CertBlocked, sizeof(CertBlocked));
-        if (CertBlocked) {
-            __declspec(align(8)) SCertInfo CertInfo = { 0 };
-            if (NT_SUCCESS(status) && NT_SUCCESS(SbieApi_QueryDrvInfo(-1, &CertInfo, sizeof(CertInfo))) && CertInfo.type != eCertEvaluation) {
-                CertBlocked = 0;
-                SbieApi_Call(API_SET_SECURE_PARAM, 3, L"CertBlocked", &CertBlocked, sizeof(CertBlocked));
-            } else
-                m_instance->m_DriverReady = false;
-        }
-    }
+    // Certificate validation removed - all features are always enabled
+    SbieApi_ReloadConf(0, SBIE_CONF_FLAG_RELOAD_CERT);
 
 
     if (! ok) {
