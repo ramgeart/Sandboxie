@@ -1,6 +1,12 @@
 # Sandboxie
 
+[![GitHub Release](https://img.shields.io/github/release/sandboxie-plus/Sandboxie.svg)](https://github.com/sandboxie-plus/Sandboxie/releases/latest) [![GitHub Build Status](https://github.com/sandboxie-plus/Sandboxie/actions/workflows/main.yml/badge.svg)](https://github.com/sandboxie-plus/Sandboxie/actions)
+
+[![Roadmap](https://img.shields.io/badge/Roadmap-Link%20-blue?style=for-the-badge)](https://www.wilderssecurity.com/threads/updated-sandboxie-plus-roadmap.456886/) [![Join our Discord Server](https://img.shields.io/badge/Join-Our%20Discord%20Server%20for%20bugs,%20feedback%20and%20more!-blue?style=for-the-badge&logo=discord)](https://discord.gg/S4tFu6Enne)
+
 Sandbox-based isolation software for Windows NT-based operating systems. It creates a secure, isolated virtual environment in which applications can be run or installed without permanently modifying local and mapped drives or the Windows registry.
+
+**Note: This is a community fork that took place after the release of the Sandboxie source code and not the official continuation of the previous development (see the [project history](#project-history) and [#2926](https://github.com/sandboxie-plus/Sandboxie/issues/2926)).**
 
 ## Overview
 
@@ -11,6 +17,10 @@ Sandboxie intercepts system calls at the kernel level to redirect file system, r
 - Run multiple programs concurrently within a single sandbox
 
 **System requirements:** Windows 7 or higher (64-bit)
+
+## Download
+
+[Latest Release](https://github.com/sandboxie-plus/Sandboxie/releases/latest)
 
 ## Architecture
 
@@ -43,6 +53,13 @@ Sandboxie is available in two editions that share the same core components and p
 
 **Classic** — Legacy MFC-based UI with manual configuration via `Sandboxie.ini`.
 
+## Useful Tools
+
+- [LogApiDll](https://github.com/sandboxie-plus/LogApiDll) — verbose trace log output listing Windows API function invocations
+- [SbieHide](https://github.com/VeroFess/SbieHide) — hides the presence of SbieDll.dll from sandboxed applications
+- [SandboxToys2](https://github.com/blap/SandboxToys2) — monitors file and registry changes in a sandbox
+- [Sbiextra](https://github.com/sandboxie-plus/sbiextra) — adds user mode restrictions to sandboxed processes
+
 ## Building
 
 The project uses Visual Studio solution files:
@@ -53,6 +70,17 @@ The project uses Visual Studio solution files:
 - `SandboxiePlus/SandboxiePlus.sln` — Plus UI (Qt)
 - `SandboxieTools/SandboxieTools.sln` — tools (ImBox, UpdUtil)
 
+<a id="project-history"></a>
+## Project History
+
+|      Timeline       |    Maintainer    |
+|        :---         |       :---       |
+| 2004 – 2013         | Ronen Tzur       |
+| 2013 – 2017         | Invincea Inc.    |
+| 2017 – 2020         | Sophos Group plc |
+| April 2020 — [open-source release](https://community.sophos.com/sandboxie/f/forum/119641/important-sandboxie-open-source-code-is-available-for-download) | Sophos Ltd. |
+| April 2020 onwards — community fork | David Xanatos |
+
 ## Documentation
 
 - [User Guide](./docs/index.md) — comprehensive usage documentation
@@ -61,8 +89,3 @@ The project uses Visual Studio solution files:
 - [Contributing](./CONTRIBUTING.md)
 - [Security policy](./SECURITY.md)
 - [Code of conduct](./CODE_OF_CONDUCT.md)
-
-## License
-
-- Plus edition: [LICENSE.Plus](./LICENSE.Plus)
-- Classic edition: [LICENSE.Classic](./LICENSE.Classic)
