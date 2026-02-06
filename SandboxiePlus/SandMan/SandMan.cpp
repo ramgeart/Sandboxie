@@ -2979,7 +2979,9 @@ void CSandMan::SaveMessageLog(QIODevice* pFile)
 
 bool CSandMan::SetCertificate(const QByteArray& Certificate)
 {
-	return true;
+	g_Certificate = Certificate;
+	SB_STATUS Status = theAPI->SetDatFile("Certificate.dat", Certificate);
+	return Status;
 }
 
 

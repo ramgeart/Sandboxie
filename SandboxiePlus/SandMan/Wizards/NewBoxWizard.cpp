@@ -518,10 +518,6 @@ void CBoxTypePage::OnBoxTypChanged()
 	m_pInfoLabel->setText(theGUI->GetBoxDescription(BoxType));
 #endif
 
-    if(BoxType != CSandBoxPlus::eDefault || BlackBox) {
-		// All features are always enabled
-	}
-
     emit completeChanged();
 }
 

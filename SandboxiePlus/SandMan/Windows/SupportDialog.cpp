@@ -33,6 +33,7 @@ bool CSupportDialog::IsBusinessUse()
 
 bool CSupportDialog::CheckSupport(bool bOnRun)
 {
+	Q_UNUSED(bOnRun);
 	// All features are free - no support reminder needed
 	return false;
 }
@@ -42,6 +43,8 @@ int CountSeats();
 
 bool CSupportDialog::ShowDialog(bool NoGo, int Wait)
 {
+	Q_UNUSED(NoGo);
+	Q_UNUSED(Wait);
 	// All features are free - no dialog needed
 	return true;
 }

@@ -1554,7 +1554,6 @@ void CSettingsWindow::UpdateDrives()
 
 void CSettingsWindow::UpdateUpdater()
 {
-	bool bOk = true; // All features are always enabled
 	//ui.radLive->setEnabled(false);
 	if (!ui.chkAutoUpdate->isChecked()) 
 	{

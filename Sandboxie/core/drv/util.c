@@ -563,6 +563,10 @@ void InitFwUuid();
 
 _FX NTSTATUS MyValidateCertificate(void)
 {
+    // Ensure HWID (g_uuid_str) is initialized even if certificate validation is bypassed
+    if (g_uuid_str[0] == L'\0')
+        InitFwUuid();
+
     // All features are always enabled - no certificate required
     Verify_CertInfo.State = 0;
     Verify_CertInfo.active = 1;
