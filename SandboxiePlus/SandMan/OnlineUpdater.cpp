@@ -326,20 +326,7 @@ extern "C" NTSTATUS NTAPI NtQueryInstallUILanguage(LANGID* LanguageId);
 
 bool COnlineUpdater::IsLockRequired()
 {
-	if (theConf->GetBool("Debug/LockedRegion", false))
-		return true;
-
-	if (g_CertInfo.lock_req)
-		return true;
-
-	LANGID LangID = 0;
-	if ((NtQueryInstallUILanguage(&LangID) == 0) && (LangID == 0x0804))
-		return true;
-
-	if (theGUI->m_LanguageId == 0x0804)
-		return true;
-
-	return false;
+	return false; // No lock/cert requirements
 }
 
 void CGetCertJob::Finish(QNetworkReply* pReply)
@@ -407,52 +394,18 @@ void COnlineUpdater::LoadState()
 QString COnlineUpdater::GetOnNewUpdateOption() const
 {
 	QString OnNewUpdate = theConf->GetString("Options/OnNewUpdate", "ignore");
-
-	QString ReleaseChannel = theConf->GetString("Options/ReleaseChannel", "stable");
-	if (ReleaseChannel != "preview" && (!g_CertInfo.active || g_CertInfo.expired)) // without active cert, allow revisions for preview channel
-		return "ignore"; // this service requires a valid certificate
-
 	return OnNewUpdate;
 }
 
 QString COnlineUpdater::GetOnNewReleaseOption() const
 {
 	QString OnNewRelease = theConf->GetString("Options/OnNewRelease", "download");
-
-	if (OnNewRelease == "install" || OnNewRelease == "download") {
-		QString ReleaseChannel = theConf->GetString("Options/ReleaseChannel", "stable");
-		if (ReleaseChannel != "preview" && (!g_CertInfo.active || g_CertInfo.expired)) // without active cert, allow automated updates only for preview channel
-			return "notify"; // this service requires a valid certificate
-	}
-
-	//if ((g_CertInfo.active && g_CertInfo.expired) && OnNewRelease == "install")
-	//	return "download"; // disable auto update on an active but expired personal certificate
 	return OnNewRelease;
 }
 
 bool COnlineUpdater::ShowCertWarningIfNeeded()
 {
-	//
-	// This function checks if this installation uses a expired personal
-	// certificate which is active for the current build
-	// in which case it shows a warning that updating to the latest build 
-	// will deactivate the certificate
-	//
-
-	if (!(g_CertInfo.active && g_CertInfo.expired))
-		return true;
-
-	QString Message = tr("Your Sandboxie-Plus supporter certificate is expired, however for the current build you are using it remains active, when you update to a newer build exclusive supporter features will be disabled.\n\n"
-		"Do you still want to update?");
-	int Ret = QMessageBox("Sandboxie-Plus", Message, QMessageBox::Warning, QMessageBox::Yes, QMessageBox::No | QMessageBox::Escape | QMessageBox::Default, QMessageBox::Cancel, theGUI).exec();
-	if (Ret == QMessageBox::Cancel) {
-		QTimer::singleShot(10, this, [=] {
-			theConf->DelValue("Updater/InstallerPath");
-			theConf->DelValue("Updater/UpdateVersion");
-			theGUI->UpdateLabel();
-		});
-	}
-	return Ret == QMessageBox::Yes;
+	return true; // No certificate warnings needed
 }
 
 void COnlineUpdater::Process() 
@@ -491,7 +444,7 @@ void COnlineUpdater::Process()
 			}
 		}
 	}
-	else if (g_CertInfo.active)
+	else // All features always enabled
 	{
 		QDateTime LastUpdateDate = COnlineUpdater::GetLastUpdateDate();
 		int DaysSinceUpdate = LastUpdateDate.daysTo(CurretnDate);
@@ -638,7 +591,7 @@ bool COnlineUpdater::HandleUpdate()
 	// solution: apply updates silently, then prompt to install new release, else prioritize installing new releases over updating the existing one
 	//
 
-	bool bAllowAuto = g_CertInfo.active && !g_CertInfo.expired; // To use automatic updates a valid certificate is required
+	bool bAllowAuto = true; // All features are always enabled
 
 	bool bCanRunInstaller = (m_CheckMode == eAuto && OnNewRelease == "install");
 	bool bIsInstallerReady = false;

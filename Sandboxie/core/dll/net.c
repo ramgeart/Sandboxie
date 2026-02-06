@@ -438,9 +438,8 @@ _FX int WSA_WSAStartup(
 
         WSA_ProxyEnabled = TRUE;
 
-        __declspec(align(8)) SCertInfo CertInfo = { 0 }; // experimental not yet for public
-        if (NT_SUCCESS(SbieApi_QueryDrvInfo(-1, &CertInfo, sizeof(CertInfo))) && (CertInfo.type == eCertDeveloper || CERT_IS_TYPE(CertInfo, eCertEternal)))
-            WSA_ProxyThread = SbieApi_QueryConfBool(NULL, L"UseProxyThreads", FALSE);
+        // All features are always enabled
+        WSA_ProxyThread = SbieApi_QueryConfBool(NULL, L"UseProxyThreads", FALSE);
 
         if (!WSA_ProxyThread)
             WSA_ProxyHack = TRUE;
@@ -2063,15 +2062,7 @@ _FX BOOLEAN WSA_InitNetProxy()
     // enable proxy and fail connections to prevent accidental ip leakage
     //
 
-    __declspec(align(8)) SCertInfo CertInfo = { 0 };
-    if (!NT_SUCCESS(SbieApi_QueryDrvInfo(-1, &CertInfo, sizeof(CertInfo))) || !(CertInfo.active && CertInfo.opt_net)) {
-
-        const WCHAR* strings[] = { L"NetworkUseProxy" , NULL };
-        SbieApi_LogMsgExt(-1, 6009, strings);
-
-        WSA_Proxy4 = NULL;
-        WSA_Proxy6 = NULL;
-    }
+    // All features are always enabled - no certificate check needed
 
     return TRUE;
 }
