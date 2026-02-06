@@ -151,35 +151,6 @@ CSbieAPI::~CSbieAPI()
 	delete m;
 }
 
-bool CSbieAPI::IsSbieCtrlRunning()
-{
-	static const WCHAR *SbieCtrlMutexName = SANDBOXIE L"_SingleInstanceMutex_Control";
-
-	HANDLE hSbieCtrlMutex = OpenMutexW(MUTEX_ALL_ACCESS, FALSE, SbieCtrlMutexName);
-	if (hSbieCtrlMutex) {
-		CloseHandle(hSbieCtrlMutex);
-		return true;
-	}
-	return false;
-}
-
-bool CSbieAPI::TerminateSbieCtrl()
-{
-	static const WCHAR *WindowClassName = L"SandboxieControlWndClass";
-
-	HWND hwnd = FindWindowW(WindowClassName, NULL);
-	if (hwnd) {
-		PostMessage(hwnd, WM_QUIT, 0, 0);
-	}
-
-	for (int i = 0; i < 10 && hwnd != NULL; i++) {
-		QThread::msleep(100);
-		hwnd = FindWindowW(WindowClassName, NULL);
-	}
-
-	return hwnd == NULL;
-}
-
 CSandBox* CSbieAPI::NewSandBox(const QString& BoxName, class CSbieAPI* pAPI)
 {
 	return new CSandBox(BoxName, pAPI);

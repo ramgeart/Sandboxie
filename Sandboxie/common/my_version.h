@@ -66,8 +66,7 @@
 #define SBIESVC                 L"SbieSvc"
 #define SBIESVC_EXE             L"SbieSvc.exe"
 
-#define SANDBOXIE_CONTROL       L"SandboxieControl"
-#define SBIECTRL_EXE            L"SbieCtrl.exe"
+#define SANDBOXIE_CONTROL       L"SandMan.exe"
 #define SBIECTRL_               L"SbieCtrl_"
 
 #define START_EXE               L"Start.exe"

@@ -476,7 +476,7 @@ void CSandMan::CreateViewBaseMenu()
 		m_pViewMode = new QActionGroup(m_pMenuView);
 		MakeAction(m_pViewMode, m_pMenuView, tr("Simple View"), 0);
 		MakeAction(m_pViewMode, m_pMenuView, tr("Advanced View"), 1);
-		MakeAction(m_pViewMode, m_pMenuView, tr("Vintage View (like SbieCtrl)"), 2);
+		MakeAction(m_pViewMode, m_pMenuView, tr("Vintage View"), 2);
 		connect(m_pViewMode, SIGNAL(triggered(QAction*)), this, SLOT(OnViewMode(QAction*)));
 
 		m_pMenuView->addSeparator();
@@ -3217,7 +3217,7 @@ SB_STATUS CSandMan::ConnectSbieImpl()
 	}
 
 	if (Status.GetStatus() == 0xC0000038L /*STATUS_DEVICE_ALREADY_ATTACHED*/) {
-		OnLogMessage(tr("CAUTION: Another agent (probably SbieCtrl.exe) is already managing this Sandboxie session, please close it first and reconnect to take over."));
+		OnLogMessage(tr("CAUTION: Another agent is already managing this Sandboxie session, please close it first and reconnect to take over."));
 		Status = SB_OK;
 	}
 	else if (Status.GetStatus() == 0xC000A000L /*STATUS_INVALID_SIGNATURE*/) {

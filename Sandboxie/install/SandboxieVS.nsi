@@ -1087,9 +1087,6 @@ WriteLoop:
     File /oname=${START_EXE} "${BIN_ROOT}\Start.exe"
     File /oname=${START_EXE}.sig "${BIN_ROOT}\Start.exe.sig"
 
-    File /oname=${SBIECTRL_EXE} "${BIN_ROOT}\SbieCtrl.exe"
-    File /oname=${SBIECTRL_EXE}.sig "${BIN_ROOT}\SbieCtrl.exe.sig"
-
     File "..\install\Templates.ini"
 
     File "Manifest0.txt"
@@ -1206,9 +1203,6 @@ Function DeleteProgramFiles
 
     Delete "$INSTDIR\${START_EXE}"
     Delete "$INSTDIR\${START_EXE}.sig"
-
-    Delete "$INSTDIR\${SBIECTRL_EXE}"
-    Delete "$INSTDIR\${SBIECTRL_EXE}.sig"
 
     Delete "$INSTDIR\Templates.ini"
 
@@ -1341,7 +1335,7 @@ Function WriteShortCuts
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8023)" "$INSTDIR\${START_EXE}" "/box:__ask__ start_menu" "" "" SW_SHOWNORMAL "" "$(MSG_8024)"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8025)" "$INSTDIR\${START_EXE}" "default_browser" "" "" SW_SHOWNORMAL "" "$(MSG_8026)"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8027)" "$INSTDIR\${START_EXE}" "." "" "" SW_SHOWNORMAL "" "$(MSG_8028)"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8029)" "$INSTDIR\${SBIECTRL_EXE}" "/open" "" "" SW_SHOWNORMAL "" "$(MSG_8030)"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8027)" "$INSTDIR\${START_EXE}" "." "" "" SW_SHOWNORMAL "" "$(MSG_8028)"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8031)" "$WINDIR\Installer\${OUTFILE_${_BUILDARCH}}" "/remove" "" "" SW_SHOWNORMAL "" "$(MSG_8032)"
 
 SkipWriteShortCuts:
@@ -1693,7 +1687,7 @@ Function .onGUIEnd
     StrCmp $LaunchControl "Y" 0 Done
 
 ;    ExecWait '"$INSTDIR\${START_EXE}" run_sbie_ctrl' $0
-    ExecWait '"$INSTDIR\${START_EXE}" open_agent:"${SBIECTRL_EXE} /open /sync /postsetup"' $0
+    ExecWait '"$INSTDIR\${START_EXE}" open_agent:"${SANDBOXIE_CONTROL} /open /sync /postsetup"' $0
 
 Done:
 
