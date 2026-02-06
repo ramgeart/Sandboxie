@@ -1335,7 +1335,6 @@ Function WriteShortCuts
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8023)" "$INSTDIR\${START_EXE}" "/box:__ask__ start_menu" "" "" SW_SHOWNORMAL "" "$(MSG_8024)"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8025)" "$INSTDIR\${START_EXE}" "default_browser" "" "" SW_SHOWNORMAL "" "$(MSG_8026)"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8027)" "$INSTDIR\${START_EXE}" "." "" "" SW_SHOWNORMAL "" "$(MSG_8028)"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8027)" "$INSTDIR\${START_EXE}" "." "" "" SW_SHOWNORMAL "" "$(MSG_8028)"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_FULL_NAME}\$(MSG_8031)" "$WINDIR\Installer\${OUTFILE_${_BUILDARCH}}" "/remove" "" "" SW_SHOWNORMAL "" "$(MSG_8032)"
 
 SkipWriteShortCuts:
