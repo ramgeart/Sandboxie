@@ -55,6 +55,7 @@ The project uses Visual Studio solution files:
 
 ## Documentation
 
+- [User Guide](./docs/index.md) — comprehensive usage documentation
 - [Online documentation](https://sandboxie-plus.github.io/sandboxie-docs)
 - [Changelog](./CHANGELOG.md)
 - [Contributing](./CONTRIBUTING.md)
