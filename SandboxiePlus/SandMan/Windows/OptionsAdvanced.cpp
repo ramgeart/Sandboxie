@@ -676,12 +676,6 @@ void COptionsWindow::SaveAdvanced()
 
 void COptionsWindow::OnIsolationChanged()
 {
-	if (sender() == ui.chkNoSecurityIsolation) {
-		// we can ignore chkNoSecurityFiltering as it requires chkNoSecurityIsolation
-		if (ui.chkNoSecurityIsolation->isChecked()) {
-			// All features are always enabled
-		}
-
 	UpdateBoxIsolation();
 
 	if (sender() == ui.chkNoSecurityIsolation && !ui.chkNoSecurityIsolation->isChecked()) {
