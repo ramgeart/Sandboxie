@@ -137,8 +137,6 @@ copy /y %sbiePath%\SbieDll.pdb %instPath%\
 copy /y %sbiePath%\SbieDrv.sys %instPath%\
 copy /y %sbiePath%\SbieDrv.pdb %instPath%\
 
-copy /y %sbiePath%\SbieCtrl.exe %instPath%\
-copy /y %sbiePath%\SbieCtrl.pdb %instPath%\
 copy /y %sbiePath%\Start.exe %instPath%\
 copy /y %sbiePath%\Start.pdb %instPath%\
 copy /y %sbiePath%\kmdutil.exe %instPath%\

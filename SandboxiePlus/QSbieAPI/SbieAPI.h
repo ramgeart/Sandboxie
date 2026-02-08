@@ -37,9 +37,6 @@ public:
 	CSbieAPI(QObject* parent = 0);
 	virtual ~CSbieAPI();
 
-	static bool				IsSbieCtrlRunning();
-	static bool				TerminateSbieCtrl();
-
 	virtual SB_STATUS		Connect(bool takeOver, bool withQueue);
 	virtual SB_STATUS		Disconnect();
 	virtual bool			IsConnected() const;

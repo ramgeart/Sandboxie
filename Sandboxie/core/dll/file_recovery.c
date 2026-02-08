@@ -375,7 +375,7 @@ _FX void File_NotifyRecover(HANDLE FileHandle, void* CloseParams)
     IO_STATUS_BLOCK IoStatusBlock;
    
     //
-    // send request to SbieCtrl (if recoverable file)
+    // send request to SandMan (if recoverable file)
     //
 
     Dll_PushTlsNameBuffer(TlsData);

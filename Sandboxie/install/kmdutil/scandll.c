@@ -376,7 +376,7 @@ _FX ULONG Kmd_DoWindow(WCHAR *text, PGM *pgms, BOOLEAN silent)
         if (_wcsicmp(pgms[i].image, SBIESVC_EXE) == 0)
             continue;
 
-        if (_wcsicmp(pgms[i].image, SBIECTRL_EXE) == 0) {
+        if (_wcsicmp(pgms[i].image, SANDBOXIE_CONTROL) == 0) {
             ULONG sessid;
             if (ProcessIdToSessionId(GetCurrentProcessId(), &sessid))
                 if (pgms[i].session_id == sessid)

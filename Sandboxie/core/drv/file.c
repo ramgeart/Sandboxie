@@ -408,8 +408,8 @@ _FX void File_CreateBoxPath_2(HANDLE FileHandle)
                         "IconIndex=9\r\n"
                         "IconResource=%S\\%S,9\r\n"
                         "InfoTip=%s",
-                        Driver_HomePathDos + 4, SBIECTRL_EXE,
-                        Driver_HomePathDos + 4, SBIECTRL_EXE,
+                        Driver_HomePathDos + 4, START_EXE,
+                        Driver_HomePathDos + 4, START_EXE,
                         _Tip);
         }
     }
