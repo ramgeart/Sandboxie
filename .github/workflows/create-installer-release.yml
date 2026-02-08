@@ -1,0 +1,162 @@
+name: Create Installer Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (defaults to version from my_version.h)'
+        required: false
+  push:
+    tags:
+      - 'v*'
+
+env:
+  forbuildVariables: use Installer\buildVariables.cmd file
+
+jobs:
+  build_installer_x64:
+    runs-on: windows-2022
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Load Variables from buildVariables.cmd
+        shell: cmd
+        run: |
+          @echo on
+          call "${{ github.workspace }}\Installer\buildVariables.cmd" build_qt6
+          echo qt6_version=%qt6_version% >> %GITHUB_ENV%
+          echo qt_version=%qt6_version% >> %GITHUB_ENV%
+
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Sandboxie x86 (DLLs & svc)
+        run: msbuild /t:build Sandboxie\SandboxDll.sln /p:Configuration="SbieRelease" /p:Platform=Win32 -maxcpucount:8
+
+      - name: Build Sandboxie x64 (all)
+        run: msbuild /t:build Sandboxie\Sandbox.sln /p:Configuration="SbieRelease" /p:Platform=x64 -maxcpucount:8
+
+      - name: Build Sandboxie x64 (drv)
+        run: msbuild /t:build Sandboxie\SandboxDrv.sln /p:Configuration="SbieRelease" /p:Platform=x64 -maxcpucount:8
+
+      - name: Install Qt6 x64
+        run: SandboxiePlus\install_qt.cmd x64
+
+      - name: Installing Jom
+        run: SandboxiePlus\install_jom.cmd
+
+      - name: Build Sandboxie-Plus x64
+        run: SandboxiePlus\qmake_plus.cmd x64 build_qt6
+
+      - name: Build SbieShell x64
+        run: msbuild /t:restore,build -p:RestorePackagesConfig=true SandboxiePlus\SbieShell\SbieShell.sln /p:Configuration="Release" /p:Platform=x64
+
+      - name: Build Sandboxie-Tools x64
+        run: msbuild /t:build SandboxieTools\SandboxieTools.sln /p:Configuration="Release" /p:Platform=x64 -maxcpucount:8
+
+      - name: Add missing languages for Qt6 (issue 1528)
+        run: Installer\fix_qt5_languages.cmd x64 build_qt6
+
+      - name: Get openssl binaries
+        run: Installer\get_openssl.cmd
+
+      - name: Get 7z binaries
+        run: Installer\get_7zip.cmd
+
+      - name: Merging Build
+        run: Installer\copy_build.cmd x64 build_qt6
+
+      - name: Get Sandboxie version
+        id: get_version
+        shell: cmd
+        run: |
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MJR" Sandboxie\common\my_version.h') do set VER_MJR=%%A
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MIN" Sandboxie\common\my_version.h') do set VER_MIN=%%A
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
+          echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
+
+      - name: Build Installer x64
+        run: |
+          "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=x64 /DMyAppSrc=SbiePlus_x64
+
+      - name: Collect installer assets
+        run: Installer\get_assets.cmd
+
+      - name: Upload Installer x64
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: Installer_x64
+          path: |
+            Installer/Release/Sandboxie-Plus-x64-v*.exe
+          retention-days: 30
+
+  create_release:
+    needs: build_installer_x64
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Download x64 Installer
+        uses: actions/download-artifact@v4
+        with:
+          name: Installer_x64
+          path: release-assets/
+
+      - name: Get Sandboxie version
+        id: get_version
+        run: |
+          VER_MJR=$(grep '^#define VERSION_MJR' Sandboxie/common/my_version.h | awk '{print $3}')
+          VER_MIN=$(grep '^#define VERSION_MIN' Sandboxie/common/my_version.h | awk '{print $3}')
+          VER_REV=$(grep '^#define VERSION_REV' Sandboxie/common/my_version.h | awk '{print $3}')
+          echo "SBIE_VER=${VER_MJR}.${VER_MIN}.${VER_REV}" >> "$GITHUB_OUTPUT"
+
+      - name: Determine release tag
+        id: release_tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tag }}" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+          else
+            TAG="v${{ steps.get_version.outputs.SBIE_VER }}"
+          fi
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog from recent commits
+        run: |
+          TARGET_REF="${{ steps.release_tag.outputs.tag }}"
+          if git rev-parse "$TARGET_REF^{commit}" >/dev/null 2>&1; then
+            TARGET_COMMIT=$(git rev-parse "$TARGET_REF^{commit}")
+          else
+            TARGET_COMMIT=$(git rev-parse HEAD)
+          fi
+          LAST_TAG=$(git describe --tags --abbrev=0 --exclude="$TARGET_REF" 2>/dev/null || true)
+          if [ -n "$LAST_TAG" ]; then
+            git log "$LAST_TAG"..$TARGET_COMMIT --no-merges --pretty=format:"- %s" > changelog.txt
+          else
+            git log -n 20 --no-merges --pretty=format:"- %s" $TARGET_COMMIT > changelog.txt
+          fi
+          if [ ! -s changelog.txt ]; then
+            echo "- Latest changes" > changelog.txt
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release_tag.outputs.tag }}
+          name: Sandboxie Plus v${{ steps.get_version.outputs.SBIE_VER }}
+          body_path: changelog.txt
+          files: release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
