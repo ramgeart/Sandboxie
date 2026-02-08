@@ -1493,10 +1493,10 @@ NTSTATUS SbieIniServer::RunSbieCtrl(HANDLE hToken, const WCHAR* DeskName, const 
 
         //
         // run the agent executable from the sbie home directory,
-        // when none was specified fallback to SBIECTRL_EXE
+        // when none was specified fallback to SandMan.exe
         //
 
-        if (SbieDll_RunFromHome(*ctrlCmd ? ctrlCmd : SBIECTRL_EXE, args, &si, NULL)) {
+        if (SbieDll_RunFromHome(*ctrlCmd ? ctrlCmd : SANDBOXIE_CONTROL, args, &si, NULL)) {
 
             WCHAR *CmdLine = (WCHAR *)si.lpReserved;
 

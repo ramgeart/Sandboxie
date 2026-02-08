@@ -54,33 +54,3 @@ jobs:
           identifier: Sandboxie.Plus
           installers-regex: "Sandboxie-Plus.*.exe$"
           token: ${{ secrets.WINGET_TOKEN }}
-
-  publish-classic:
-    needs: sync-upstream-winget-pkgs
-    runs-on: windows-latest
-    steps:
-      - name: Check Sandboxie-Classic version
-        id: check_classic
-        run: |
-          # Skip if not a release event
-          if ("${{ github.event_name }}" -eq "release") {
-            echo "ready=true" >> $env:GITHUB_OUTPUT
-          } else {
-            Write-Host "Classic publish is only executed on release runs; skipping on manual run."
-            echo "ready=false" >> $env:GITHUB_OUTPUT
-          }
-        shell: pwsh
-      - name: Get Sandboxie-Classic version
-        id: get_version
-        run: |
-          $VERSION="${{ github.event.release.name }}" -replace '^.*/ '
-          echo "CLASSIC_VER=$VERSION" >> $env:GITHUB_OUTPUT
-        shell: pwsh
-      - name: Publish Sandboxie-Classic
-        if: steps.check_classic.outputs.ready == 'true'
-        uses: vedantmgoyal9/winget-releaser@main
-        with:
-          version: ${{ steps.get_version.outputs.CLASSIC_VER }}
-          identifier: Sandboxie.Classic
-          installers-regex: "Sandboxie-Classic.*.exe$"
-          token: ${{ secrets.WINGET_TOKEN }}

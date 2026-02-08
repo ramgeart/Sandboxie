@@ -577,7 +577,7 @@ extern void RestartHostInjectedSvcs();
 void DriverAssist::RestartHostInjectedSvcs()
 {
     //
-    // SbieCtrl issues a refresh on every setting change,
+    // SandMan issues a refresh on every setting change,
     // resulting in this function getting triggered way to often, 
     // hence we implement a small workaround.
     // The first thread to hit this monitors how many 

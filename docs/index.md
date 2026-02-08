@@ -59,13 +59,6 @@ Sandboxie is a sandbox-based isolation software for Windows that creates secure,
 
 - Windows 7 or higher (64-bit)
 
-## Editions
+## User Interface
 
-Sandboxie is available in two editions that share the same core engine:
-
-| Edition | UI Framework | Feature Support |
-| :--- | :--- | :--- |
-| **Plus** | Qt | Full GUI support for all features |
-| **Classic** | MFC | Basic GUI; advanced features via `Sandboxie.ini` |
-
-Both editions provide the same level of security and isolation. The Plus edition is recommended for access to the full feature set through the graphical interface.
+Sandboxie provides a modern Qt-based graphical interface (SandMan) with full support for all features including snapshot management, privacy mode, encrypted sandboxes, network firewall, and more.

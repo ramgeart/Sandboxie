@@ -31,11 +31,7 @@ Sandboxie intercepts system calls at the kernel level to redirect file system, r
 | `SandboxieTools/ImBox` | Encrypted sandbox image tool |
 | `SandboxieTools/UpdUtil` | Update utility |
 
-## Editions
-
-Sandboxie is available in two editions that share the same core components and provide the same level of security and compatibility.
-
-**Plus** — Modern Qt-based UI with full feature support:
+## Features
 
 - Snapshot manager for sandbox state backup and restore
 - Privacy-mode sandboxes that protect user data from unauthorized access
@@ -47,8 +43,6 @@ Sandboxie is available in two editions that share the same core components and p
 - Import/export sandboxes as 7z archives
 - Trigger system for sandbox lifecycle events
 - Portable mode deployment
-
-**Classic** — Legacy MFC-based UI with manual configuration via `Sandboxie.ini`.
 
 ## Useful Tools
 
