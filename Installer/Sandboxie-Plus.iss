@@ -426,7 +426,7 @@ begin
   begin
 
     // Stop processes.
-    Exec(ExpandConstant('{sys}\taskkill.exe'), '/IM Sandman.exe /IM Start.exe /F', '', SW_HIDE, ewWaitUntilTerminated, ExecRet);
+    Exec(ExpandConstant('{sys}\taskkill.exe'), '/IM SandMan.exe /IM Start.exe /F', '', SW_HIDE, ewWaitUntilTerminated, ExecRet);
 
     Result := ShutdownSbie();
     exit;
@@ -710,9 +710,13 @@ var
   ExecRet: Integer;
 begin
 
-  if FileExists(ExpandConstant('{app}\Sandman.exe')) then begin
+  if FileExists(ExpandConstant('{app}\SandMan.exe')) then begin
     Log('Debug: SandMan /ShellUninstall');
-    Exec(ExpandConstant('{app}\Sandman.exe'), '/ShellUninstall', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ExecRet);
+    Exec(ExpandConstant('{app}\SandMan.exe'), '/ShellUninstall', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ExecRet);
+  end
+  else if FileExists(ExpandConstant('{app}\SbieCtrl.exe')) then begin
+    Log('Debug: SbieCtrl /uninstall (fallback for ShellUninstall)');
+    Exec(ExpandConstant('{app}\SbieCtrl.exe'), '/uninstall', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ExecRet);
   end;
   if RegKeyExists(HKCU, 'Software\Xanasoft\{#MyAppName}') then begin
     Log('Debug: RegDeleteKeyIncludingSubkeys HKCU\Software\Xanasoft\Sandboxie-Plus');
@@ -740,7 +744,7 @@ begin
     exit;
 
   // Stop processes.
-  Exec(ExpandConstant('{sys}\taskkill.exe'), '/IM Sandman.exe /IM Start.exe /F', '', SW_HIDE, ewWaitUntilTerminated, ExecRet);
+  Exec(ExpandConstant('{sys}\taskkill.exe'), '/IM SandMan.exe /IM Start.exe /F', '', SW_HIDE, ewWaitUntilTerminated, ExecRet);
 
   // User to confirm extra files to remove.
   if not UninstallSilent then
