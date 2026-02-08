@@ -175,6 +175,19 @@ jobs:
       - name: Merging Build
         run: Installer\copy_build.cmd x64 build_qt6
 
+      - name: Get Sandboxie version
+        id: get_version
+        shell: cmd
+        run: |
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MJR" Sandboxie\common\my_version.h') do set VER_MJR=%%A
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MIN" Sandboxie\common\my_version.h') do set VER_MIN=%%A
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
+          echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
+
+      - name: Build Installer x64
+        run: |
+          "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=x64 /DMyAppSrc=SbiePlus_x64
+
       - name: Collect installer assets
         run: Installer\get_assets.cmd
 
@@ -194,6 +207,14 @@ jobs:
           name: Sandboxie_x64
           path: |
             Installer/SbiePlus_x64/*
+          retention-days: 60
+
+      - name: Upload Installer x64
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: Installer_x64
+          path: |
+            Installer/Release/Sandboxie-Plus-x64-v*.exe
           retention-days: 60
 
 
@@ -298,6 +319,19 @@ jobs:
       - name: Merging Build
         run: Installer\copy_build.cmd ARM64 build_qt6
 
+      - name: Get Sandboxie version
+        id: get_version
+        shell: cmd
+        run: |
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MJR" Sandboxie\common\my_version.h') do set VER_MJR=%%A
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MIN" Sandboxie\common\my_version.h') do set VER_MIN=%%A
+          for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
+          echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
+
+      - name: Build Installer ARM64
+        run: |
+          "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=arm64 /DMyAppSrc=SbiePlus_a64
+
       - name: Upload Sandboxie ARM64
         #if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v6.0.0
@@ -306,3 +340,51 @@ jobs:
           path: |
             Installer/SbiePlus_a64/*
           retention-days: 60
+
+      - name: Upload Installer ARM64
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: Installer_ARM64
+          path: |
+            Installer/Release/Sandboxie-Plus-arm64-v*.exe
+          retention-days: 60
+
+
+  Create_Release:
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    needs: [Build_x64_Qt6, Build_ARM64_Qt6]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Get Sandboxie version
+        id: get_version
+        run: |
+          VER_MJR=$(grep '^#define VERSION_MJR' Sandboxie/common/my_version.h | awk '{print $3}')
+          VER_MIN=$(grep '^#define VERSION_MIN' Sandboxie/common/my_version.h | awk '{print $3}')
+          VER_REV=$(grep '^#define VERSION_REV' Sandboxie/common/my_version.h | awk '{print $3}')
+          echo "SBIE_VER=${VER_MJR}.${VER_MIN}.${VER_REV}" >> "$GITHUB_OUTPUT"
+
+      - name: Download x64 Installer
+        uses: actions/download-artifact@v4
+        with:
+          name: Installer_x64
+          path: release-assets/
+
+      - name: Download ARM64 Installer
+        uses: actions/download-artifact@v4
+        with:
+          name: Installer_ARM64
+          path: release-assets/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.get_version.outputs.SBIE_VER }}
+          name: Sandboxie Plus v${{ steps.get_version.outputs.SBIE_VER }}
+          draft: true
+          files: release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
