@@ -1,5 +1,8 @@
 name: Create Installer Release
 
+# This workflow builds the x64 installer using official sources (aqtinstall, Chocolatey)
+# and creates a GitHub Release when a v* tag is pushed or manually dispatched.
+
 on:
   workflow_dispatch:
     inputs:
