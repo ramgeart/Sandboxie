@@ -184,7 +184,14 @@ jobs:
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
           echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
 
+      - name: Move x64 binaries to Release folder for Inno Setup
+        shell: cmd
+        run: |
+          if not exist "Installer\Release\SbiePlus_x64" mkdir "Installer\Release\SbiePlus_x64"
+          xcopy /E /Y /I "Installer\SbiePlus_x64\*" "Installer\Release\SbiePlus_x64\"
+
       - name: Build Installer x64
+        shell: cmd
         run: |
           "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=x64 /DMyAppSrc=SbiePlus_x64
 
@@ -328,7 +335,14 @@ jobs:
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
           echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
 
+      - name: Move ARM64 binaries to Release folder for Inno Setup
+        shell: cmd
+        run: |
+          if not exist "Installer\Release\SbiePlus_a64" mkdir "Installer\Release\SbiePlus_a64"
+          xcopy /E /Y /I "Installer\SbiePlus_a64\*" "Installer\Release\SbiePlus_a64\"
+
       - name: Build Installer ARM64
+        shell: cmd
         run: |
           "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=arm64 /DMyAppSrc=SbiePlus_a64
 
