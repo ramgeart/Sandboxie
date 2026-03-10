@@ -87,26 +87,29 @@ jobs:
   Build_x64_Qt6:
     runs-on: windows-2022
     timeout-minutes: 45
+    outputs:
+      installer_payloads: ${{ steps.installer_payloads.outputs.available }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Verify required installer payloads
+      - name: Check required installer payloads
+        id: installer_payloads
         shell: cmd
         run: |
           setlocal enabledelayedexpansion
-          set missing=
+          set available=true
           for %%F in ("Installer\imdisk_files.cab" "Installer\imdisk_install.bat") do (
             if not exist "%%~F" (
-              echo Missing required file: %%~F
-              set missing=1
+              echo Missing optional installer payload: %%~F
+              set available=false
             )
           )
-          if defined missing (
+          echo available=!available!>> %GITHUB_OUTPUT%
+          if "!available!"=="false" (
             echo.
-            echo Required third-party installer payloads are missing. Place them under Installer\ before running CI.
-            exit /b 1
+            echo Installer payloads are unavailable, so installer packaging and release steps will be skipped.
           )
 
       - name: Load Variables from buildVariables.cmd
@@ -194,6 +197,7 @@ jobs:
 
       - name: Get Sandboxie version
         id: get_version
+        if: steps.installer_payloads.outputs.available == 'true'
         shell: cmd
         run: |
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MJR" Sandboxie\common\my_version.h') do set VER_MJR=%%A
@@ -202,20 +206,24 @@ jobs:
           echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
 
       - name: Move x64 binaries to Release folder for Inno Setup
+        if: steps.installer_payloads.outputs.available == 'true'
         shell: cmd
         run: |
           if not exist "Installer\Release\SbiePlus_x64" mkdir "Installer\Release\SbiePlus_x64"
           xcopy /E /Y /I "Installer\SbiePlus_x64\*" "Installer\Release\SbiePlus_x64\"
 
       - name: Build Installer x64
+        if: steps.installer_payloads.outputs.available == 'true'
         shell: cmd
         run: |
           "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=x64 /DMyAppSrc=SbiePlus_x64
 
       - name: Collect installer assets
+        if: steps.installer_payloads.outputs.available == 'true'
         run: Installer\get_assets.cmd
 
       - name: Upload installer assets
+        if: steps.installer_payloads.outputs.available == 'true'
         #if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v6.0.0
         with:
@@ -234,6 +242,7 @@ jobs:
           retention-days: 60
 
       - name: Upload Installer x64
+        if: steps.installer_payloads.outputs.available == 'true'
         uses: actions/upload-artifact@v6.0.0
         with:
           name: Installer_x64
@@ -250,7 +259,7 @@ jobs:
         shell: bash
 
   Create_Release:
-    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request' && needs.Build_x64_Qt6.outputs.installer_payloads == 'true'
     needs: [Build_x64_Qt6]
     runs-on: ubuntu-latest
     permissions:
