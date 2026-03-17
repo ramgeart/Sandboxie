@@ -175,8 +175,20 @@ jobs:
       - name: Merging Build
         run: Installer\copy_build.cmd x64 build_qt6
 
+      - name: Check installer payloads
+        id: installer_payloads
+        shell: cmd
+        run: |
+          setlocal enabledelayedexpansion
+          set available=true
+          for %%F in ("Installer\imdisk_files.cab" "Installer\imdisk_install.bat") do (
+            if not exist "%%~F" set available=false
+          )
+          echo available=!available!>> %GITHUB_OUTPUT%
+
       - name: Get Sandboxie version
         id: get_version
+        if: steps.installer_payloads.outputs.available == 'true'
         shell: cmd
         run: |
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MJR" Sandboxie\common\my_version.h') do set VER_MJR=%%A
@@ -184,15 +196,27 @@ jobs:
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
           echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
 
+      - name: Copy x64 binaries to Release folder for Inno Setup
+        if: steps.installer_payloads.outputs.available == 'true'
+        shell: cmd
+        run: |
+          if exist "Installer\SbiePlus_x64" (
+            if not exist "Installer\Release\SbiePlus_x64" mkdir "Installer\Release\SbiePlus_x64"
+            xcopy /E /Y /I "Installer\SbiePlus_x64\*" "Installer\Release\SbiePlus_x64\"
+          )
+
       - name: Build Installer x64
+        if: steps.installer_payloads.outputs.available == 'true'
+        shell: cmd
         run: |
           "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=x64 /DMyAppSrc=SbiePlus_x64
 
       - name: Collect installer assets
+        if: steps.installer_payloads.outputs.available == 'true'
         run: Installer\get_assets.cmd
 
       - name: Upload installer assets
-        #if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        if: steps.installer_payloads.outputs.available == 'true'
         uses: actions/upload-artifact@v6.0.0
         with:
           name: Assets
@@ -210,6 +234,7 @@ jobs:
           retention-days: 60
 
       - name: Upload Installer x64
+        if: steps.installer_payloads.outputs.available == 'true'
         uses: actions/upload-artifact@v6.0.0
         with:
           name: Installer_x64
@@ -319,8 +344,20 @@ jobs:
       - name: Merging Build
         run: Installer\copy_build.cmd ARM64 build_qt6
 
+      - name: Check installer payloads
+        id: installer_payloads
+        shell: cmd
+        run: |
+          setlocal enabledelayedexpansion
+          set available=true
+          for %%F in ("Installer\imdisk_files.cab" "Installer\imdisk_install.bat") do (
+            if not exist "%%~F" set available=false
+          )
+          echo available=!available!>> %GITHUB_OUTPUT%
+
       - name: Get Sandboxie version
         id: get_version
+        if: steps.installer_payloads.outputs.available == 'true'
         shell: cmd
         run: |
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_MJR" Sandboxie\common\my_version.h') do set VER_MJR=%%A
@@ -328,7 +365,18 @@ jobs:
           for /F "tokens=3" %%A in ('findstr /R "^#define.VERSION_REV" Sandboxie\common\my_version.h') do set VER_REV=%%A
           echo SBIE_VER=%VER_MJR%.%VER_MIN%.%VER_REV% >> %GITHUB_OUTPUT%
 
+      - name: Copy ARM64 binaries to Release folder for Inno Setup
+        if: steps.installer_payloads.outputs.available == 'true'
+        shell: cmd
+        run: |
+          if exist "Installer\SbiePlus_a64" (
+            if not exist "Installer\Release\SbiePlus_a64" mkdir "Installer\Release\SbiePlus_a64"
+            xcopy /E /Y /I "Installer\SbiePlus_a64\*" "Installer\Release\SbiePlus_a64\"
+          )
+
       - name: Build Installer ARM64
+        if: steps.installer_payloads.outputs.available == 'true'
+        shell: cmd
         run: |
           "%ProgramFiles(x86)%\Inno Setup 6\ISCC.exe" /OInstaller\Release Installer\Sandboxie-Plus.iss /DMyAppVersion=${{ steps.get_version.outputs.SBIE_VER }} /DMyAppArch=arm64 /DMyAppSrc=SbiePlus_a64
 
@@ -342,6 +390,7 @@ jobs:
           retention-days: 60
 
       - name: Upload Installer ARM64
+        if: steps.installer_payloads.outputs.available == 'true'
         uses: actions/upload-artifact@v6.0.0
         with:
           name: Installer_ARM64
