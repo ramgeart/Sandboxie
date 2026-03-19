@@ -11,12 +11,11 @@ This guide walks you through installing Sandboxie, launching it for the first ti
 
 ## Downloading Sandboxie
 
-Download the latest installer from the [Releases page](https://github.com/sandboxie-plus/Sandboxie/releases/latest). Two installer types are available:
+Download the latest installer from the [Releases page](https://github.com/sandboxie-plus/Sandboxie/releases/latest). One installer type is currently available:
 
 | File | Description |
 | :--- | :--- |
 | `Sandboxie-Plus-x64-vX.X.X.exe` | Full installer for 64-bit Windows |
-| `Sandboxie-Plus-ARM64-vX.X.X.exe` | Installer for ARM64 Windows |
 
 ## Installation
 
