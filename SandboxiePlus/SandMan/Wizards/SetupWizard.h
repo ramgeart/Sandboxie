@@ -19,7 +19,7 @@ class CSetupWizard : public QWizard
     Q_OBJECT
 
 public:
-    enum { Page_Intro, Page_Certificate, Page_UI, Page_Shell, Page_Update, Page_Finish };
+    enum { Page_Intro, Page_UI, Page_Shell, Page_Update, Page_Finish }; // Certificate page removed
 
     CSetupWizard(int iOldLevel = 0, QWidget *parent = nullptr);
 
@@ -52,31 +52,9 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
-// CCertificatePage
-// 
-
-class CCertificatePage : public QWizardPage
-{
-    Q_OBJECT
-
-public:
-    CCertificatePage(int iOldLevel, QWidget *parent = nullptr);
-
-    void initializePage() override;
-    int nextId() const override;
-    bool isComplete() const override;
-    bool validatePage() override;
-
-private slots:
-    void OnCertData(const QByteArray& Certificate, const QVariantMap& Params);
-
-private:
-    QLabel* m_pTopLabel;
-    QPlainTextEdit* m_pCertificate;
-    QLineEdit* m_pSerial;
-    QCheckBox* m_pEvaluate;
-    int m_NextPage;
-};
+// CCertificatePage - REMOVED
+// Licensing system eliminated - all features are now free
+//////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // CUIPage

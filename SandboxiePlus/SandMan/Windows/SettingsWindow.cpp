@@ -1968,8 +1968,7 @@ void CSettingsWindow::SaveSettings()
 
 	theConf->SetValue("Options/AutoRunSoftCompat", !ui.chkNoCompat->isChecked());
 
-	if(m_CertChanged)
-		ApplyCert();
+	// Certificate apply removed - all features are free
 
 	theConf->SetValue("Options/NoSupportCheck", ui.chkNoCheck->isChecked());
 
@@ -2784,20 +2783,18 @@ void CSettingsWindow::InitSupport()
 	connect(ui.lblCertGuide, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
 	connect(ui.lblInsiderInfo, SIGNAL(linkActivated(const QString&)), theGUI, SLOT(OpenUrl(const QString&)));
 
-	m_CertChanged = false;
-	connect(ui.txtCertificate, SIGNAL(textChanged()), this, SLOT(CertChanged()));
-	ui.txtCertificate->installEventFilter(this);
-	connect(ui.txtSerial, SIGNAL(textChanged(const QString&)), this, SLOT(KeyChanged()));
-	ui.btnGetCert->setEnabled(false);
-	connect(theGUI, SIGNAL(CertUpdated()), this, SLOT(UpdateCert()));
+	// Certificate UI elements removed - licensing system eliminated
+	ui.txtCertificate->setVisible(false);
+	ui.btnGetCert->setVisible(false);
+	ui.lblEvalCert->setVisible(false);
+	ui.lblCertInfo->setVisible(false);
+	ui.lblSupport->setVisible(false);
+	ui.lblSupportCert->setVisible(false);
+	ui.lblCert->setVisible(false);
+	ui.lblCertExp->setVisible(false);
+	ui.lblCertGuide->setVisible(false);
 
-	ui.txtCertificate->setPlaceholderText(
-		"NAME: User Name\n"
-		"DATE: dd.mm.yyyy\n"
-		"TYPE: ULTIMATE\n"
-		"UPDATEKEY: 00000000000000000000000000000000\n"
-		"SIGNATURE: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
-	);
+	// Certificate placeholder removed - licensing system eliminated
 
 	wchar_t uuid_str[40];
 	if (theAPI->GetDriverInfo(-2, uuid_str, sizeof(uuid_str))) {
@@ -2825,9 +2822,7 @@ void CSettingsWindow::InitSupport()
 
 	ui.lblVersion->setText(tr("Sandboxie-Plus Version: %1").arg(theGUI->GetVersion()));
 
-	connect(ui.lblEvalCert, SIGNAL(linkActivated(const QString&)), this, SLOT(OnStartEval()));
-
-	connect(ui.btnGetCert, SIGNAL(clicked(bool)), this, SLOT(OnGetCert()));
+	// Certificate evaluation link removed - licensing system eliminated
 
 	connect(ui.chkNoCheck, SIGNAL(stateChanged(int)), this, SLOT(OnOptChanged()));
 }
@@ -3027,33 +3022,7 @@ void CSettingsWindow::OnGetCert()
 	}
 }
 
-void CSettingsWindow::OnStartEval()
-{
-	StartEval(this, this, SLOT(OnCertData(const QByteArray&, const QVariantMap&)));
-}
-
-void CSettingsWindow::StartEval(QWidget* parent, QObject* receiver, const char* member)
-{
-	QString Name = theConf->GetString("User/Name", QString::fromLocal8Bit(qgetenv("USERNAME")));
-	//#ifdef _DEBUG
-	//	Name = QInputDialog::getText(parent, tr("Sandboxie-Plus - Get EVALUATION Certificate"), tr("Please enter your Name"), QLineEdit::Normal, Name);
-	//#endif
-
-	QString eMail = QInputDialog::getText(parent, tr("Sandboxie-Plus - Get EVALUATION Certificate"), tr("Please enter your email address to receive a free %1-day evaluation certificate, which will be issued to %2 and locked to the current hardware.\n"
-		"You can request up to %3 evaluation certificates for each unique hardware ID.").arg(EVAL_DAYS).arg(Name).arg(EVAL_MAX), QLineEdit::Normal, theConf->GetString("User/eMail"));
-	if (eMail.isEmpty()) return;
-	theConf->SetValue("User/eMail", eMail);
-
-	QVariantMap Params;
-	Params["eMail"] = eMail;
-	Params["Name"] = Name;
-
-	SB_PROGRESS Status = theGUI->m_pUpdater->GetSupportCert("", receiver, member, Params);
-	if (Status.GetStatus() == OP_ASYNC) {
-		theGUI->AddAsyncOp(Status.GetValue());
-		Status.GetValue()->ShowMessage(tr("Retrieving certificate..."));
-	}
-}
+// Certificate functions removed - licensing system eliminated
 
 void CSettingsWindow::OnCertData(const QByteArray& Certificate, const QVariantMap& Params)
 {
@@ -3069,80 +3038,12 @@ void CSettingsWindow::OnCertData(const QByteArray& Certificate, const QVariantMa
 		CSandMan::ShowMessageBox(this, QMessageBox::Critical, Message);
 		return;
 	}
-	ui.txtCertificate->setProperty("hidden", false);
-	ui.txtCertificate->setPlainText(Certificate);
-	ApplyCert();
+	// Certificate application removed - all features are free
 }
 
-void CSettingsWindow::ApplyCert()
-{
-	if (!theAPI->IsConnected())
-		return;
+// Certificate functions removed - licensing system eliminated
 
-	if (ui.txtCertificate->property("hidden").toBool())
-		return;
-
-	QByteArray Certificate = ui.txtCertificate->toPlainText().toUtf8();	
-	if (g_Certificate != Certificate) {
-
-		QPalette palette = QApplication::palette();
-
-		if (theGUI->m_DarkTheme)
-			palette.setColor(QPalette::Text, Qt::black);
-
-		ui.lblCertExp->setVisible(false);
-
-		bool bRet = ApplyCertificate(Certificate, this);
-
-		if (bRet && CERT_IS_TYPE(g_CertInfo, eCertEvaluation)) {
-			int EvalCount = theConf->GetInt("User/EvalCount", 0);
-			EvalCount++;
-			theConf->SetValue("User/EvalCount", EvalCount);
-		}
-
-		if (CertRefreshRequired())
-			TryRefreshCert(this, this, SLOT(OnCertData(const QByteArray&, const QVariantMap&)));
-
-		if (Certificate.isEmpty())
-			palette.setColor(QPalette::Base, Qt::white);
-		else if (!bRet) 
-			palette.setColor(QPalette::Base, QColor(255, 192, 192));
-		else 
-			palette.setColor(QPalette::Base, QColor(192, 255, 192));
-
-		ui.txtCertificate->setPalette(palette);
-	}
-
-	m_CertChanged = false;
-}
-
-QString CSettingsWindow::GetCertType()
-{
-	QString CertType;
-	if (g_CertInfo.type == eCertContributor)
-		CertType = tr("Contributor");
-	else if (CERT_IS_TYPE(g_CertInfo, eCertEternal))
-		CertType = tr("Eternal");
-	else if (g_CertInfo.type == eCertDeveloper)
-		CertType = tr("Developer");
-	else if (CERT_IS_TYPE(g_CertInfo, eCertBusiness))
-		CertType = tr("Business");
-	else if (CERT_IS_TYPE(g_CertInfo, eCertPersonal))
-		CertType = tr("Personal");
-	else if (g_CertInfo.type == eCertGreatPatreon)
-		CertType = tr("Great Patreon");
-	else if (CERT_IS_TYPE(g_CertInfo, eCertPatreon))
-		CertType = tr("Patreon");
-	else if (g_CertInfo.type == eCertFamily)
-		CertType = tr("Family");
-	else if (CERT_IS_TYPE(g_CertInfo, eCertHome))
-		CertType = tr("Home");
-	else if (CERT_IS_TYPE(g_CertInfo, eCertEvaluation))
-		CertType = tr("Evaluation");
-	else
-		CertType = tr("Type %1").arg(g_CertInfo.type);
-	return CertType;
-}
+// Certificate functions removed - licensing system eliminated
 
 QColor CSettingsWindow::GetCertColor()
 {

@@ -56,11 +56,7 @@ public:
 	static bool	TryRefreshCert(QWidget* parent, QObject* receiver, const char* member);
 	static bool	CertRefreshRequired();
 
-	static QString GetCertType();
-	static QColor GetCertColor();
-	static QString GetCertLevel();
-
-	static void StartEval(QWidget* parent, QObject* receiver, const char* member);
+	// Certificate functions removed - licensing system eliminated
 
 	void LoadCompletionConsent();
 	void SaveCompletionConsent();
@@ -157,9 +153,7 @@ private slots:
 	void UpdateCert();
 	void OnGetCert();
 	void OnCertData(const QByteArray& Certificate, const QVariantMap& Params);
-	void ApplyCert();
-	void UpdateUpdater();
-	void OnStartEval();
+	// Certificate functions removed - licensing system eliminated
 
 	void GetUpdates();
 	void OnUpdateData(const QVariantMap& Data, const QVariantMap& Params);

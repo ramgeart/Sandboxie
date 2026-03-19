@@ -62,6 +62,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added UI for 'ProtectAdminOnly=y/n'
 
 ### Fixed
+- fixed issue with SbieApi_QueryDrvInfo in 32-bit SbieDll.dll causing improper certificate warning
 
 
 
@@ -77,6 +78,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - fixed 'OpenWndStation=y' not working with 'SandboxieAllGroup=y'
 - FIXED SECURITY ISSUE ID-28: missing parameter validation in SbieIniServer (thanks DepthFirstDisclosures)
+- FIXED SECURITY ISSUE ID-29: issue with certificate parsing (thanks pentester.z)
 - FIXED SECURITY ISSUE ID-30: an issue retrieving driver info (thanks pentester.z)
 - fixed potential handle leak in SbieDll.dll related to SbieApi_DeviceHandle [#5097](https://github.com/sandboxie-plus/Sandboxie/issues/5097)
 
@@ -118,6 +120,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - user interface: add menu option to collapse/expand groups [#5053](https://github.com/sandboxie-plus/Sandboxie/issues/5053)
 
 ### Changed
+- support certificates can now contain multiple HwID's to simplify handling
 - context menu icon upgrade [#5038](https://github.com/sandboxie-plus/Sandboxie/issues/5038)
 - improved Win32 syscall handling (experimental) when `UseWin32kFilterTable=y` is set the `KeServiceDescriptorTableFilter` will be used instead of `KeServiceDescriptorTableShadow` where appropriate
 - improved default toolbar loadout
@@ -294,6 +297,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - the configuration can be set per process, e.g. 'BindAdapterIP=program.exe,192.168.100.123', but only in the INI, not in the UI
 
 ### Changed
+- greatly improved handling of Patreon certificates
+- improved certificate tab; serial entry is now always visible, and the certificate text edit as well, though it does not show the critical information UPDATE_KEY/SIGNATURE, only on mouse click the full data is displayed
+- streamlined application of new certificates
 
 ### Fixed
 - fixed Firefox 137 throwing SBIE2328 errors in Sandboxie Plus v1.15.9 [#4652](https://github.com/sandboxie-plus/Sandboxie/issues/4638) [#4652](https://github.com/sandboxie-plus/Sandboxie/issues/4652) [#4640](https://github.com/sandboxie-plus/Sandboxie/issues/4640)
@@ -301,6 +307,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - fixed Process_GetCommandLine causing memory leak [#4658](https://github.com/sandboxie-plus/Sandboxie/issues/4658)
 - fixed Thunderbird 102.15.1 add-on blockage in Sandboxie Plus v1.15.9 [#4653](https://github.com/sandboxie-plus/Sandboxie/issues/4653)
 - fixed invoking SetParent change window to message-only window [#4656](https://github.com/sandboxie-plus/Sandboxie/issues/4656)
+- fixed issue with Unicode names when retrieving an evaluation certificate
 - fixed delete content message box to always appear on top [#4673](https://github.com/sandboxie-plus/Sandboxie/issues/4673)
 
 
@@ -311,6 +318,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added new sandbox duplication function that duplicates entire sandboxes including files [#4542](https://github.com/sandboxie-plus/Sandboxie/issues/4542)
 - added new insecure debug option 'OpenAllSysCalls=y'
 - added template for WindowGrid
+- added new certificate type [DEVELOPER](https://xanasoft.com/product/sandboxie-plus-developer/); it deactivates the user mode component verification, but can only be used in node-locked form
+  - Note: all current and future holders of Contributor or Eternal/Huge certificates are eligible to receive a free Dev Key; please request by email if required
 - added mechanism to update only Templates.ini
 - added warning if a sandbox is put in the root of a partition [#4582](https://github.com/sandboxie-plus/Sandboxie/issues/4582)
 
@@ -456,6 +465,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - improved deletion of Sandboxie Plus leftovers [#4374](https://github.com/sandboxie-plus/Sandboxie/pull/4374)
 
 ### Fixed
+- fixed SSL issues on ARM64 platform that broke updater and certificate retrieval
 
 
 
@@ -464,6 +474,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - added "NetworkAdapterMAC=0,AA-BB-CC-DD-EE-FF" to set MAC address for each box (thanks Yeyixiao)
 - added "DiskSerialNumber=DeviceName,1234-ABCD" to set disk serial number for an individual box (thanks Yeyixiao)
+- added the ability to hide certificates in the edit box in the global settings (idea by Yeyixiao)
 - added opening a program in several sandboxes at once [#4231](https://github.com/sandboxie-plus/Sandboxie/issues/4231)
 - added "Description" field inside the sandbox settings [#4243](https://github.com/sandboxie-plus/Sandboxie/issues/4243)
 - added "NotifyMsiInstaller=y" enabled by default to display message SBIE2194 when an MSI installer is run in a box without the recommended exemptions [#4330](https://github.com/sandboxie-plus/Sandboxie/issues/4330)
@@ -509,6 +520,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - added new user proxy mechanism to enable user specific operations
 - added support for EFS using the user proxy [#1980](https://github.com/sandboxie-plus/Sandboxie/issues/1980)
+  - to enable it, add 'EnableEFS=y' to the sandbox configuration (requires an advanced supporter certificate)
 - added breakout document functionality [#2741](https://github.com/sandboxie-plus/Sandboxie/issues/2741)
   - use a syntax like this 'BreakoutDocument=C:\path\*.txt' to specify path and extension
   - Security Warning: do not use paths terminated with a wildcard like 'BreakoutDocument=C:\path\*' as they will allow for execution of malicious scripts outside the sandbox!
@@ -566,6 +578,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - allow users to import/export boxes with .zip files [#4200](https://github.com/sandboxie-plus/Sandboxie/pull/4200)
 
 ### Fixed
+- fixed a supporter certificate issue introduced with 1.14.7
 
 
 
@@ -574,6 +587,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - added "RandomRegUID" (bool) which sets Windows Product ID in the registry to a random value
 - added "HideDiskSerialNumber" (bool) return random value when applications try to get disk serial number
+- added option to get free 10 days evaluation certificates from the support settings page
+  - the evaluation certificates are node locked to the HwID and for each HwID up to 3 certificates can be requested
 - added "TerminateWhenExit" (bool, in Sandboxie-Plus.ini) to terminate all processes when SandMan exits for [#4171](https://github.com/sandboxie-plus/Sandboxie/issues/4171)
 - added a question box to ask for Sandbox Import Location for [#4169](https://github.com/sandboxie-plus/Sandboxie/issues/4169)
 - added UI option to configure DropConHostIntegrity
@@ -596,6 +611,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - fixed CustomLCID issue under Windows 7 [#4117](https://github.com/sandboxie-plus/Sandboxie/issues/4117)
+- fixed settings window issue with non-advanced certificates introduced in 1.14.0
 - fixed issue with API_PROCESS_EXEMPTION_CONTROL
 
 
@@ -613,8 +629,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Note: you can also use "SandMan.exe /add_force program_path" to do it
 
 ### Changed
+- the certificate format can now take an explicit validity days specification, needed for gapless certificate renewal
 
 ### Fixed
+- fixed multiple supporter certificate pop-ups if sandbox settings are opened [#4074](https://github.com/sandboxie-plus/Sandboxie/issues/4074)
 - fixed issue with HwID-bound serial keys failing when no HwID could be obtained
 - fixed issue with "UseChangeSpeed=y"
 - fixed broken "HideFirmwareInfo=y" implementation
@@ -737,6 +755,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - validated compatibility with Windows build 26217 and updated DynData
 
 ### Fixed
+- fixed an issue with an early batch of Large Supporter certificates
 
 
 
@@ -800,6 +819,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - on systems in test signing mode, Sandboxie will try outdated offsets by default
 - updated to Qt 5.15.13 with latest security patches [#3694](https://github.com/sandboxie-plus/Sandboxie/pull/3694) (thanks LumitoLuma)
 - moved network restrictions from general restrictions to their own tab on the network page
+- improved certificate retrieval UI messages
 - improved MPC-BE template [#3798](https://github.com/sandboxie-plus/Sandboxie/pull/3798) (thanks offhub)
 
 ### Fixed
@@ -832,6 +852,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.13.3 / 5.68.3] - 2024-03-16
 
 ### Added
+- added certificate usage guide link to support page
 
 ### Fixed
 - fixed issues with "IsProtectScreen=y" [3656](https://github.com/sandboxie-plus/Sandboxie/pull/3656#discussion_r1518549704)
@@ -982,6 +1003,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added the display of date and time in the Sbie Messages tab [#3429](https://github.com/sandboxie-plus/Sandboxie/issues/3429)
 
 ### Changed
+- without an active supporter certificate, automatic updates are no longer available for the stable channel
   - the automatic updater will still notify about new stable releases and the user will be guided to the download page to download the latest installer manually
 - the clean-up button in SandMan UI is now enabled even when not connected to the Sandboxie core components
 - the box creation wizard now allows to create encrypted sandboxes based on any other box type
@@ -1045,8 +1067,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.12.0 / 5.67.0] - 2023-10-25
 
 ### Added
+- added mechanism to automatically set USB drives as forced folders (requires a supporter certificate)
 - added troubleshooting script for parental controls [#3318](https://github.com/sandboxie-plus/Sandboxie/issues/3318)
 - started German translation of the troubleshooting scripts ...\SandboxiePlus\SandMan\Troubleshooting\lang_de.json [#3293](https://github.com/sandboxie-plus/Sandboxie/issues/3293)
+- added "get_cert SBIEX-XXXXX-XXXXX-XXXXX-XXXXX" command to UpdUtil.exe allowing to receive a certificate by serial number using command line
+- added mechanism to revoke leaked or refunded certificates
 - added new global hotkey to bring SandMan in front as top most ALT+Break [#3320](https://github.com/sandboxie-plus/Sandboxie/issues/3320)
 - added option to exclude specific boxes from 'Terminate all processes' [#3108](https://github.com/sandboxie-plus/Sandboxie/issues/3108)
   - Note: press the panic button hotkey 3 times with less than 1 second between clicks to Terminate All without exceptions
@@ -1104,6 +1129,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.11.2 / 5.66.2] - 2023-09-09
 
 ### Added
+- added update warning if a personal certificate expires
 - added an option to terminate the UI by clicking the close button [#3253](https://github.com/sandboxie-plus/Sandboxie/issues/3253)
 - added an option to restore a Sandboxie window which has been minimized to the system tray with a single click [#3251](https://github.com/sandboxie-plus/Sandboxie/issues/3251)
 - added an option to minimize Sandboxie to the system tray by clicking minimize button [#3252](https://github.com/sandboxie-plus/Sandboxie/issues/3252)
@@ -1116,6 +1142,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - changed the /mount_protected command line switch to be checked before the /mount command line switch [#3289](https://github.com/sandboxie-plus/Sandboxie/pull/3289)
 
 ### Fixed
+- fixed subscription certificate recognition issue
 - fixed logo cut-off in the About window [#3249](https://github.com/sandboxie-plus/Sandboxie/issues/3249)
 - fixed issue with file recovery when using a RAM drive [d82b62e](https://github.com/sandboxie-plus/Sandboxie/commit/d82b62ee78d865e21005b9b81dfa9dac9f524b90)
 
@@ -1149,6 +1176,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - using the ImDisk driver and a new ImBox component featuring the cryptographic implementation from [DiskCryptor](https://diskcryptor.org/) the sandbox root folder is stored in an encrypted container file
   - using the SbieDrv to prevent processes not belonging to the sandbox from accessing an encrypted sandbox's root folder
   - with the 'ConfidentialBox=y' option the host process read access to sandboxed processes is blocked
+- added certificate info to the About dialog
+- added support for a more flexible certificate style
+- added option for business customers to retrieve hardware-bound certificates from a serial number
+- added option to upgrade existing certificates using an upgrade serial number
 
 ### Changed
 - improved online updater code
@@ -1166,6 +1197,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - submenus don't close on mouse-leave (thanks typpos) [#2963](https://github.com/sandboxie-plus/Sandboxie/issues/2963)
 
 ### Fixed
+- fixed verification of business certificates
 
 
 
@@ -1186,6 +1218,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added mechanism to open websites for add-ons [#3166](https://github.com/sandboxie-plus/Sandboxie/issues/3166)
 
 ### Changed
+- improved business certificate handling, added usage count and machine-bound options
 
 ### Fixed
 - fixed issues with pinned shortcuts
@@ -1285,6 +1318,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Note: the main injection detour code is now written in C instead of Assembler and can properly report SbieDll.dll loading errors as SBIE2181
 - improved session agent startup to be more flexible
 - improved SBIEMSG help handling, the link now contains message details allowing to point to a more exact document (if available)
+- updated certificate validation code
 
 ### Fixed
 - fixed uninstall issue in the Sandboxie Classic installer [d1863ff](https://github.com/sandboxie-plus/Sandboxie/commit/d1863ffadfe105c695de71c9e841c2fd568116fe)
@@ -1540,6 +1574,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.8.1 / 5.63.1] - 2023-03-12
 
 ### Added
+- added certificate protection [#2722](https://github.com/sandboxie-plus/Sandboxie/issues/2722)
 
 ### Fixed
 - fixed issue with finder search in trace log
@@ -1656,8 +1691,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.6.7 / 5.61.7] - 2023-01-24
 
 ### Added
+- added option to Sandboxie Classic to apply a supporter certificate
 
 ### Changed
+- time-limited certificates now have 1 more month of validity to improve the renewal experience
 
 ### Fixed
 - fixed issue with Hebrew language (Classic UI) [#2608](https://github.com/sandboxie-plus/Sandboxie/issues/2608)
@@ -1997,6 +2034,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added option to block host processes from accessing sandboxed ones [#2132](https://github.com/sandboxie-plus/Sandboxie/issues/2132)
   - Usage: DenyHostAccess=Program.exe,y
   - Note: by default, this protection only applies for write access, that is, unsandboxed processes will still be able to obtain read-only access
+  - to prevent host processes from obtaining read access, ConfidentialBox=y must also be set, which requires a supporter certificate
 - added compatibility template for ReHIPS
 - added creation of all default folders in privacy box type [#2218](https://github.com/sandboxie-plus/Sandboxie/issues/2218)
 
@@ -2057,6 +2095,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - fixed issue with displaying sandbox configuration [#2111](https://github.com/sandboxie-plus/Sandboxie/issues/2111)
 - fixed flashing issue when switching views [#2050](https://github.com/sandboxie-plus/Sandboxie/issues/2050)
 - fixed inconsistencies with various checkboxes in the Plus UI [ef4ac1b](https://github.com/sandboxie-plus/Sandboxie/commit/ef4ac1b6b34d505e46515e9aabb98411a9b1751e) [06c89e3](https://github.com/sandboxie-plus/Sandboxie/commit/06c89e3f45036f593fed7a0d0d59d54313e8ca77)
+- fixed a certificate validation issue [238cb44](https://github.com/sandboxie-plus/Sandboxie/commit/238cb44969923479148e210814ab91d2428ec4b0)
 - fixed issue with "UseRuleSpecificity" setting [#2124](https://github.com/sandboxie-plus/Sandboxie/issues/2124) [file.c#L965-L966](https://github.com/sandboxie-plus/Sandboxie/blob/ff759692a222cf7c492cb4d5cfd76c79fbde1c2b/Sandboxie/core/drv/file.c#L965-L966)
 
 
@@ -2073,6 +2112,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - additional syscalls may need to be allowed, this has to be done in the [GlobalSettings] and the driver must be restarted
   - Note: boxes created as Security Hardened with prior builds will be displayed as normal in the UI from now on
   - the Security Hardened icons are now repurposed for the new Super Extra Security Hardened Box Mode
+  - Note: the new enhanced security features require a supporter certificate
 - added browse option to the "force process" tab
 - added support reminder dialog
 
@@ -2129,6 +2169,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - improved a few icons
 
 ### Fixed
+- fixed a certificate validation issue
 
 
 
@@ -2325,6 +2366,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added "FuncSkipHook=FunctionName" option to selectively disable certain function hooks
 
 ### Changed
+- improved the support certificate entry box
 - changing the language no longer requires a restart on Plus UI
 - fixed issue with high CPU load when using SbieCtrl to change settings
 
@@ -2454,6 +2496,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - FIXED SECURITY ISSUE ID-17: Hard link creation was not properly filtered (thanks Diversenok)
+- fixed issue with checking the certificate entry
 
 
 

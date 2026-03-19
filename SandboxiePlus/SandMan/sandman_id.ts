@@ -257,8 +257,6 @@ Untuk menonaktifkan template ini untuk sebuah sandbox, cukup hapus centangnya di
     </message>
     <message>
         <location filename="Wizards/BoxAssistant.cpp" line="280"/>
-        <source>With a valid &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt; the wizard would be even more powerful. It could access the &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-issue-db&quot;&gt;online solution database&lt;/a&gt; to retrieve the latest troubleshooting instructions.</source>
-        <oldsource>With a valid &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt; the wizard would be even more powerfull. It could access the &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-issue-db&quot;&gt;online solution database&lt;/a&gt; to retriev the latest troubleshooting instructions.</oldsource>
         <translation>Dengan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt; yang valid, panduan ini akan menjadi lebih kuat. Panduan ini dapat mengakses &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-issue-db&quot;&gt;basis data solusi online&lt;/a&gt; untuk mendapatkan instruksi pemecahan masalah terbaru.</translation>
     </message>
     <message>
@@ -360,10 +358,8 @@ Untuk menonaktifkan template ini untuk sebuah sandbox, cukup hapus centangnya di
     <message>
         <location filename="Windows/BoxImageWindow.cpp" line="144"/>
         <source>WARNING: Short passwords are easy to crack using brute force techniques!
-
 It is recommended to choose a password consisting of 20 or more characters. Are you sure you want to use a short password?</source>
         <translation>PERINGATAN: Kata sandi yang pendek mudah dibobol menggunakan teknik brute force!
-
 Disarankan untuk memilih kata sandi yang terdiri dari 20 karakter atau lebih. Apakah Anda yakin ingin menggunakan kata sandi yang pendek?</translation>
     </message>
     <message>
@@ -899,7 +895,6 @@ Silakan telusuri ke direktori profil pengguna yang benar.</translation>
     </message>
     <message>
         <location filename="Wizards/SetupWizard.cpp" line="249"/>
-        <source>If you have a supporter certificate, please fill it into the field below.</source>
         <translation>Jika Anda memiliki sertifikat pendukung, silakan masukkan ke kolom di bawah ini.</translation>
     </message>
     <message>
@@ -914,13 +909,10 @@ Silakan telusuri ke direktori profil pengguna yang benar.</translation>
     </message>
     <message>
         <location filename="Wizards/SetupWizard.cpp" line="291"/>
-        <source>&lt;b&gt;&lt;a href=&quot;_&quot;&gt;&lt;font color=&apos;red&apos;&gt;Get a free evaluation certificate&lt;/font&gt;&lt;/a&gt; and enjoy all premium features for %1 days.&lt;/b&gt;</source>
         <translation>&lt;b&gt;&lt;a href=&quot;_&quot;&gt;&lt;font color=&apos;red&apos;&gt;Dapatkan sertifikat evaluasi gratis&lt;/font&gt;&lt;/a&gt; dan nikmati semua fitur premium selama %1 hari.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="Wizards/SetupWizard.cpp" line="292"/>
-        <source>You can request a free %1-day evaluation certificate up to %2 times per hardware ID.</source>
-        <oldsource>You can request a free %1-day evaluation certificate up to %2 times for any one Hardware ID</oldsource>
         <translation>Anda dapat meminta sertifikat evaluasi gratis selama %1 hari hingga %2 kali untuk setiap ID perangkat keras.</translation>
     </message>
     <message>
@@ -930,7 +922,6 @@ Silakan telusuri ke direktori profil pengguna yang benar.</translation>
     </message>
     <message>
         <location filename="Wizards/SetupWizard.cpp" line="331"/>
-        <source>&lt;b&gt;Sandboxie-Plus&lt;/b&gt; provides additional features and box types exclusively to &lt;u&gt;project supporters&lt;/u&gt;. Boxes like the Privacy Enhanced boxes &lt;b&gt;&lt;font color=&apos;red&apos;&gt;protect user data from illicit access&lt;/font&gt;&lt;/b&gt; by the sandboxed programs. If you are not yet a supporter, then please consider &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;supporting the project&lt;/a&gt; to ensure further development of Sandboxie and to receive a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;.</source>
         <translation>&lt;b&gt;Sandboxie-Plus&lt;/b&gt; menyediakan fitur tambahan dan tipe kotak khusus untuk &lt;u&gt;pendukung proyek&lt;/u&gt;. Kotak seperti Privacy Enhanced &lt;b&gt;&lt;font color=&apos;red&apos;&gt;melindungi data pengguna dari akses ilegal&lt;/font&gt;&lt;/b&gt; oleh program yang berjalan di sandbox. Jika Anda belum menjadi pendukung, mohon pertimbangkan untuk &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;mendukung proyek ini&lt;/a&gt; demi kelanjutan pengembangan Sandboxie dan untuk menerima &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt;.</translation>
     </message>
     <message>
@@ -1006,7 +997,6 @@ Kesalahan: %1</translation>
 + Shift: Backward
 + Ctrl: Case Sensitively
 + Alt: Whole Words
-
 Find String:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1026,10 +1016,8 @@ Find String:</source>
     <message>
         <location filename="Wizards/BoxAssistant.cpp" line="1086"/>
         <source>Thank you for using the Troubleshooting Wizard for Sandboxie-Plus. We apologize for any inconvenience you experienced during the process. If you have any additional questions or need further assistance, please don&apos;t hesitate to reach out. We&apos;re here to help. Thank you for your understanding and cooperation. 
-
 You can click Finish to close this wizard.</source>
         <translation>Terima kasih telah menggunakan Panduan Pemecahan Masalah untuk Sandboxie-Plus. Kami mohon maaf atas ketidaknyamanan yang Anda alami selama proses ini. Jika Anda memiliki pertanyaan tambahan atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi kami. Kami siap membantu Anda. Terima kasih atas pengertian dan kerja samanya.
-
 Anda dapat mengklik Selesai untuk menutup panduan ini.</translation>
     </message>
 </context>
@@ -1976,20 +1964,15 @@ You can use %USER% to save each users sandbox to an own fodler.</oldsource>
     </message>
     <message>
         <location filename="OnlineUpdater.cpp" line="445"/>
-        <source>Your Sandboxie-Plus supporter certificate is expired, however for the current build you are using it remains active, when you update to a newer build exclusive supporter features will be disabled.
-
 Do you still want to update?</source>
         <translation>Sertifikat pendukung Sandboxie-Plus Anda telah kedaluwarsa, namun untuk build saat ini yang Anda gunakan masih tetap aktif. Jika Anda memperbarui ke build yang lebih baru, fitur eksklusif untuk pendukung akan dinonaktifkan.
-
 Apakah Anda masih ingin memperbarui?</translation>
     </message>
     <message>
         <location filename="OnlineUpdater.cpp" line="592"/>
         <source>No new updates found, your Sandboxie-Plus is up-to-date.
-
 Note: The update check is often behind the latest GitHub release to ensure that only tested updates are offered.</source>
         <translation>Tidak ada pembaruan baru yang ditemukan, Sandboxie-Plus Anda sudah terbaru.
-
 Catatan: Pemeriksaan pembaruan seringkali tertinggal dari rilis GitHub terbaru untuk memastikan hanya pembaruan yang telah diuji yang ditawarkan.</translation>
     </message>
 </context>
@@ -2456,8 +2439,6 @@ Catatan: Pemeriksaan pembaruan seringkali tertinggal dari rilis GitHub terbaru u
     </message>
     <message>
         <location filename="Windows/OptionsGeneral.cpp" line="25"/>
-        <source>This option requires an active supporter certificate</source>
-        <oldsource>This option requires a valid supporter certificate</oldsource>
         <translation>Opsi ini memerlukan sertifikat pendukung yang aktif</translation>
     </message>
     <message>
@@ -2517,7 +2498,6 @@ Catatan: Pemeriksaan pembaruan seringkali tertinggal dari rilis GitHub terbaru u
     </message>
     <message>
         <location filename="Windows/OptionsGeneral.cpp" line="23"/>
-        <source>This option requires an active &lt;b&gt;advanced&lt;/b&gt; supporter certificate</source>
         <translation>Opsi ini memerlukan sertifikat pendukung &lt;b&gt;lanjutan&lt;/b&gt; yang aktif</translation>
     </message>
     <message>
@@ -2899,16 +2879,12 @@ Catatan: Pemeriksaan pembaruan seringkali tertinggal dari rilis GitHub terbaru u
         <location filename="Windows/OptionsTemplates.cpp" line="290"/>
         <source>An alternate location for &apos;%1&apos;
 should contain the following file:
-
 %2
-
 The selected location does not contain this file.
 Please select a folder which contains this file.</source>
         <translation>Lokasi alternatif untuk &apos;%1&apos;
 harus berisi file berikut:
-
 %2
-
 Lokasi yang dipilih tidak berisi file ini.
 Silakan pilih folder yang berisi file ini.</translation>
     </message>
@@ -2985,7 +2961,6 @@ Silakan pilih folder yang berisi file ini.</translation>
     <message>
         <location filename="Windows/OptionsWindow.cpp" line="1775"/>
         <source>If you are unsure about the settings displayed in the autocomplete popup, we strongly recommend consulting the software&apos;s documentation or source code before proceeding. Enabling this feature without proper understanding may lead to unintended consequences, for which you will be solely responsible.
-
 Choose autocomplete mode:
 %1 Manual: Autocomplete suggestions with %2.
 %1 While Typing: Autocomplete suggestions while typing.</source>
@@ -3395,10 +3370,8 @@ Full path: %4</source>
     <message>
         <location filename="Wizards/BoxAssistant.cpp" line="729"/>
         <source>
-
 Error: </source>
         <translation>
-
 Kesalahan: </translation>
     </message>
 </context>
@@ -3521,7 +3494,6 @@ Berbeda dengan saluran pratinjau, saluran ini tidak mencakup perubahan yang belu
     </message>
     <message>
         <location filename="Wizards/SetupWizard.cpp" line="709"/>
-        <source>Access to the latest compatibility templates and the online troubleshooting database requires a valid &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;.</source>
         <translation>Akses ke template kompatibilitas terbaru dan basis data pemecahan masalah daring memerlukan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt; yang valid.</translation>
     </message>
 </context>
@@ -3994,10 +3966,8 @@ Berbeda dengan saluran pratinjau, saluran ini tidak mencakup perubahan yang belu
     <message>
         <location filename="SandMan.cpp" line="1384"/>
         <source>Sandboxie-Plus was running in portable mode, now it has to clean up the created services. This will prompt for administrative privileges.
-
 Do you want to do the clean up?</source>
         <translation>Sandboxie-Plus berjalan dalam mode portabel, sekarang harus membersihkan layanan yang telah dibuat. Ini akan meminta hak administratif.
-
 Apakah Anda ingin melakukan pembersihan?</translation>
     </message>
     <message>
@@ -4031,7 +4001,6 @@ Apakah Anda ingin melakukan pembersihan?</translation>
         <location filename="SandMan.cpp" line="1593"/>
         <source>&lt;br /&gt;&lt;br /&gt;This box &lt;a href=&quot;sbie://docs/privacy-mode&quot;&gt;prevents access to all user data&lt;/a&gt; locations, except explicitly granted in the Resource Access options.</source>
         <oldsource>
-
 This box &lt;a href=&quot;sbie://docs/privacy-mode&quot;&gt;prevents access to all user data&lt;/a&gt; locations, except explicitly granted in the Resource Access options.</oldsource>
         <translation>&lt;br /&gt;&lt;br /&gt;Kotak ini &lt;a href=&quot;sbie://docs/privacy-mode&quot;&gt;mencegah akses ke semua lokasi data pengguna&lt;/a&gt;, kecuali yang secara eksplisit diizinkan di opsi Resource Access.</translation>
     </message>
@@ -4147,7 +4116,6 @@ Tidak akan memilih: %2</translation>
     </message>
     <message>
         <location filename="SandMan.cpp" line="3136"/>
-        <source>The selected feature set is only available to project supporters. Processes started in a box with this feature set enabled without a supporter certificate will be terminated after 5 minutes.&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;Become a project supporter&lt;/a&gt;, and receive a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;</source>
         <translation>Fitur yang dipilih hanya tersedia untuk pendukung proyek. Proses yang dijalankan di dalam kotak dengan fitur ini diaktifkan tanpa sertifikat pendukung akan dihentikan setelah 5 menit.&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;Jadilah pendukung proyek&lt;/a&gt;, dan dapatkan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt;</translation>
     </message>
     <message>
@@ -4175,10 +4143,8 @@ Tidak akan memilih: %2</translation>
     <message>
         <location filename="SandManRecovery.cpp" line="132"/>
         <source>The file %1 failed a security check!
-
 %2</source>
         <translation>File %1 gagal pemeriksaan keamanan! 
-
 %2</translation>
     </message>
     <message>
@@ -4189,13 +4155,10 @@ Tidak akan memilih: %2</translation>
     <message>
         <location filename="SandManRecovery.cpp" line="197"/>
         <source>The file %1 failed a security check, do you want to recover it anyway?
-
 %2</source>
         <oldsource>The file %1 failed a security check, do you want to recover it anyways?
-
 %2</oldsource>
         <translation>File %1 gagal pemeriksaan keamanan, apakah Anda tetap ingin memulihkannya? 
-
 %2</translation>
     </message>
     <message>
@@ -4587,7 +4550,6 @@ Silakan periksa apakah ada pembaruan untuk Sandboxie.</translation>
         <location filename="SandMan.cpp" line="3026"/>
         <location filename="SandMan.cpp" line="3038"/>
         <location filename="SandMan.cpp" line="3125"/>
-        <source>&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;Become a project supporter&lt;/a&gt;, and receive a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;</source>
         <translation>&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;Jadilah pendukung proyek&lt;/a&gt;, dan dapatkan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt;</translation>
     </message>
     <message>
@@ -4717,7 +4679,6 @@ Apakah Anda ingin menonaktifkan pemindaian Pembaruan Windows dari deteksi kompat
     </message>
     <message>
         <location filename="SandMan.cpp" line="3022"/>
-        <source>The box %1 is configured to use features which require an &lt;b&gt;advanced&lt;/b&gt; supporter certificate.</source>
         <translation>Kotak %1 dikonfigurasi untuk menggunakan fitur yang memerlukan sertifikat pendukung &lt;b&gt;lanjutan&lt;/b&gt;.</translation>
     </message>
     <message>
@@ -4728,7 +4689,6 @@ Apakah Anda ingin menonaktifkan pemindaian Pembaruan Windows dari deteksi kompat
     </message>
     <message>
         <location filename="SandMan.cpp" line="3119"/>
-        <source>The selected feature requires an &lt;b&gt;advanced&lt;/b&gt; supporter certificate.</source>
         <translation>Fitur yang dipilih memerlukan sertifikat pendukung &lt;b&gt;lanjutan&lt;/b&gt;.</translation>
     </message>
     <message>
@@ -4738,7 +4698,6 @@ Apakah Anda ingin menonaktifkan pemindaian Pembaruan Windows dari deteksi kompat
     </message>
     <message>
         <location filename="SandMan.cpp" line="3133"/>
-        <source>The selected feature set is only available to project supporters.&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;Become a project supporter&lt;/a&gt;, and receive a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;</source>
         <translation>Fitur yang dipilih hanya tersedia untuk pendukung proyek.&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;Jadilah pendukung proyek&lt;/a&gt;, dan dapatkan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt;</translation>
     </message>
     <message>
@@ -5063,13 +5022,10 @@ File ini adalah bagian dari Sandboxie dan semua perubahan yang dilakukan padanya
     </message>
     <message>
         <location filename="SandMan.cpp" line="3266"/>
-        <source>The supporter certificate is not valid for this build, please get an updated certificate</source>
         <translation>Sertifikat pendukung tidak berlaku untuk build ini, silakan dapatkan sertifikat yang diperbarui</translation>
     </message>
     <message>
         <location filename="SandMan.cpp" line="3269"/>
-        <source>The supporter certificate has expired%1, please get an updated certificate</source>
-        <oldsource>The supporter certificate is expired %1 days ago, please get an updated certificate</oldsource>
         <translation>Sertifikat pendukung telah kedaluwarsa%1, silakan dapatkan sertifikat yang diperbarui</translation>
     </message>
     <message>
@@ -5079,7 +5035,6 @@ File ini adalah bagian dari Sandboxie dan semua perubahan yang dilakukan padanya
     </message>
     <message>
         <location filename="SandMan.cpp" line="3272"/>
-        <source>The supporter certificate will expire in %1 days, please get an updated certificate</source>
         <translation>Sertifikat pendukung akan kedaluwarsa dalam %1 hari, silakan dapatkan sertifikat yang diperbarui</translation>
     </message>
     <message>
@@ -6260,23 +6215,18 @@ File ini adalah bagian dari Sandboxie dan semua perubahan yang dilakukan padanya
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="2923"/>
-        <source>This supporter certificate has expired, please &lt;a href=&quot;%1&quot;&gt;get an updated certificate&lt;/a&gt;.</source>
         <translation>Sertifikat pendukung ini telah kedaluwarsa, silakan &lt;a href=&quot;%1&quot;&gt;dapatkan sertifikat yang diperbarui&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3003"/>
-        <source>&lt;b&gt;You have used %1/%2 evaluation certificates. No more free certificates can be generated.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Anda telah menggunakan %1/%2 sertifikat evaluasi. Tidak ada sertifikat gratis lagi yang dapat dibuat.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3005"/>
-        <source>&lt;b&gt;&lt;a href=&quot;_&quot;&gt;Get a free evaluation certificate&lt;/a&gt; and enjoy all premium features for %1 days.&lt;/b&gt;</source>
         <translation>&lt;b&gt;&lt;a href=&quot;_&quot;&gt;Dapatkan sertifikat evaluasi gratis&lt;/a&gt; dan nikmati semua fitur premium selama %1 hari.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="2936"/>
-        <source>This supporter certificate will &lt;font color=&apos;red&apos;&gt;expire in %1 days&lt;/font&gt;, please &lt;a href=&quot;%2&quot;&gt;get an updated certificate&lt;/a&gt;.</source>
-        <oldsource>This supporter certificate has expired, please &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;get an updated certificate&lt;/a&gt;.</oldsource>
         <translation>Sertifikat pendukung ini akan &lt;font color=&apos;red&apos;&gt;kedaluwarsa dalam %1 hari&lt;/font&gt;, silakan &lt;a href=&quot;%2&quot;&gt;dapatkan sertifikat yang diperbarui&lt;/a&gt;.</translation>
     </message>
     <message>
@@ -6354,14 +6304,10 @@ Right-click to copy</oldsource>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3031"/>
-        <source>You are attempting to use a feature Upgrade-Key without having entered a pre-existing supporter certificate. Please note that this type of key (&lt;b&gt;as it is clearly stated in bold on the website&lt;/b) requires you to have a pre-existing valid supporter certificate; it is useless without one.&lt;br /&gt;If you want to use the advanced features, you need to obtain both a standard certificate and the feature upgrade key to unlock advanced functionality.</source>
-        <oldsource>You are attempting to use a feature Upgrade-Key without having entered a preexisting supporter certificate. Please note that these type of key (&lt;b&gt;as it is clearly stated in bold on the website&lt;/b&gt;) require you to have a preexisting valid supporter certificate, it is useless without one.&lt;br /&gt;If you want to use the advanced features you need to obtain booth a standard certificate and the feature upgrade key to unlock advanced functionality.</oldsource>
         <translation>Anda mencoba menggunakan fitur Upgrade-Key tanpa memasukkan sertifikat pendukung yang sudah ada sebelumnya. Harap perhatikan bahwa jenis kunci ini (&lt;b&gt;seperti yang dinyatakan dengan jelas dalam huruf tebal di situs web&lt;/b) mengharuskan Anda memiliki sertifikat pendukung yang valid dan sudah ada sebelumnya; tidak ada gunanya tanpa sertifikat tersebut.&lt;br /&gt;Jika Anda ingin menggunakan fitur-fitur tingkat lanjut, Anda perlu memperoleh sertifikat standar dan kunci upgrade fitur untuk membuka fungsionalitas tingkat lanjut.</translation>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3037"/>
-        <source>You are attempting to use a Renew-Key without having entered a pre-existing supporter certificate. Please note that this type of key (&lt;b&gt;as it is clearly stated in bold on the website&lt;/b) requires you to have a pre-existing valid supporter certificate; it is useless without one.</source>
-        <oldsource>You are attempting to use a Renew-Key without having a preexisting supporter certificate. Please note that these type of key (&lt;b&gt;as it is clearly stated in bold on the website&lt;/b&gt;) require you to have a preexisting supporter certificate, it is useless without one.</oldsource>
         <translation>Anda mencoba menggunakan Renew-Key tanpa memasukkan sertifikat pendukung yang sudah ada sebelumnya. Harap perhatikan bahwa jenis kunci ini (&lt;b&gt;seperti yang dinyatakan dengan jelas dalam huruf tebal di situs web&lt;/b) mengharuskan Anda memiliki sertifikat pendukung yang valid dan sudah ada sebelumnya; tidak ada gunanya jika tidak ada sertifikat pendukung.</translation>
     </message>
     <message>
@@ -6377,8 +6323,6 @@ Right-click to copy</oldsource>
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3073"/>
-        <source>Please enter your email address to receive a free %1-day evaluation certificate, which will be issued to %2 and locked to the current hardware.
-You can request up to %3 evaluation certificates for each unique hardware ID.</source>
         <translation>Silakan masukkan alamat email Anda untuk menerima sertifikat evaluasi gratis selama %1 hari, yang akan diterbitkan untuk %2 dan dikunci ke perangkat keras saat ini.
 Anda dapat meminta hingga %3 sertifikat evaluasi untuk setiap ID perangkat keras yang unik.</translation>
     </message>
@@ -6471,7 +6415,6 @@ Anda dapat meminta hingga %3 sertifikat evaluasi untuk setiap ID perangkat keras
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3365"/>
         <source>If you are unsure about the settings displayed in the autocomplete popup, we strongly recommend consulting the software&apos;s documentation or source code before proceeding. Enabling this feature without proper understanding may lead to unintended consequences, for which you will be solely responsible.
-
 Choose autocomplete mode:
 %1 Manual: Autocomplete suggestions with %2.
 %1 While Typing: Autocomplete suggestions while typing.</source>
@@ -6616,7 +6559,6 @@ Choose autocomplete mode:
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3006"/>
-        <source>You can request a free %1-day evaluation certificate up to %2 times per hardware ID.</source>
         <translation>Anda dapat meminta sertifikat evaluasi %1 hari gratis hingga %2 kali per ID perangkat keras.</translation>
     </message>
     <message>
@@ -6668,7 +6610,6 @@ Choose autocomplete mode:
     </message>
     <message>
         <location filename="Windows/SettingsWindow.cpp" line="3257"/>
-        <source>The evaluation certificate has been successfully applied. Enjoy your free trial!</source>
         <translation>Sertifikat evaluasi telah berhasil diterapkan. Nikmati uji coba gratis Anda!</translation>
     </message>
     <message>
@@ -7158,12 +7099,10 @@ Jika Anda sudah menjadi Great Supporter di Patreon, Sandboxie dapat memeriksa se
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="162"/>
-        <source>This is a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-insider&quot;&gt;exclusive Insider build&lt;/a&gt; of Sandboxie-Plus it is only available to &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=patreon&quot;&gt;Patreon Supporters&lt;/a&gt; on higher tiers as well as to project contributors and owners of a HUGE supporter certificate.</source>
         <translation>Ini adalah &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-insider&quot;&gt;versi Insider eksklusif&lt;/a&gt; dari Sandboxie-Plus yang hanya tersedia bagi &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=patreon&quot;&gt;Pendukung Patreon&lt;/a&gt; pada tingkatan lebih tinggi serta bagi kontributor proyek dan pemilik sertifikat pendukung BESAR.</translation>
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="168"/>
-        <source>The installed supporter certificate allows for &lt;b&gt;%1 seats&lt;/b&gt; to be active.&lt;br /&gt;&lt;br /&gt;</source>
         <translation>Sertifikat pendukung yang terpasang memungkinkan &lt;b&gt;%1 kursi&lt;/b&gt; untuk aktif.&lt;br /&gt;&lt;br /&gt;</translation>
     </message>
     <message>
@@ -7174,8 +7113,6 @@ Jika Anda sudah menjadi Great Supporter di Patreon, Sandboxie dapat memeriksa se
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="177"/>
-        <source>The installed supporter certificate &lt;b&gt;has expired %1 days ago&lt;/b&gt; and &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;must be renewed&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;</source>
-        <oldsource>The installed supporter certificate &lt;b&gt;has expired %1 days ago&lt;/b&gt; and &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;must be renewed&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;</oldsource>
         <translation>Sertifikat pendukung yang terpasang &lt;b&gt;telah kedaluwarsa %1 hari yang lalu&lt;/b&gt; dan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;harus diperbarui&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;</translation>
     </message>
     <message>
@@ -7191,13 +7128,10 @@ Jika Anda sudah menjadi Great Supporter di Patreon, Sandboxie dapat memeriksa se
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="188"/>
-        <source>The installed supporter certificate is &lt;b&gt;outdated&lt;/b&gt; and it is &lt;u&gt;not valid for&lt;b&gt; this version&lt;/b&gt;&lt;/u&gt; of Sandboxie-Plus.&lt;br /&gt;&lt;br /&gt;</source>
         <translation>Sertifikat pendukung yang terpasang sudah &lt;b&gt;kedaluwarsa&lt;/b&gt; dan &lt;u&gt;tidak berlaku untuk&lt;b&gt; versi ini&lt;/b&gt;&lt;/u&gt; dari Sandboxie-Plus.&lt;br /&gt;&lt;br /&gt;</translation>
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="190"/>
-        <source>The installed supporter certificate is &lt;b&gt;expired&lt;/b&gt; and &lt;u&gt;should be renewed&lt;/u&gt;.&lt;br /&gt;&lt;br /&gt;</source>
-        <oldsource>The installed supporter certificate is &lt;b&gt;expired&lt;/b&gt; and &lt;u&gt;should to be renewed&lt;/u&gt;.&lt;br /&gt;&lt;br /&gt;</oldsource>
         <translation>Sertifikat pendukung yang terpasang sudah &lt;b&gt;kedaluwarsa&lt;/b&gt; dan &lt;u&gt;harus diperbarui&lt;/u&gt;.&lt;br /&gt;&lt;br /&gt;</translation>
     </message>
     <message>
@@ -7207,7 +7141,6 @@ Jika Anda sudah menjadi Great Supporter di Patreon, Sandboxie dapat memeriksa se
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="195"/>
-        <source>Sandboxie on ARM64 requires a valid supporter certificate for continued use.&lt;br /&gt;&lt;br /&gt;</source>
         <translation>Sandboxie di ARM64 memerlukan sertifikat pendukung yang valid untuk penggunaan berkelanjutan.&lt;br /&gt;&lt;br /&gt;</translation>
     </message>
     <message>
@@ -7217,14 +7150,10 @@ Jika Anda sudah menjadi Great Supporter di Patreon, Sandboxie dapat memeriksa se
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="200"/>
-        <source>Please continue &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;supporting the project&lt;/a&gt; by renewing your &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt; and continue using the &lt;b&gt;enhanced functionality&lt;/b&gt; in new builds.</source>
-        <oldsource>Please continue &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;supporting the project&lt;/a&gt; by renewing your &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt; and continue using the &lt;b&gt;enhanced functionality&lt;/b&gt; in new builds.</oldsource>
         <translation>Harap teruskan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;dukungan proyek&lt;/a&gt; dengan memperbarui &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt; Anda dan terus gunakan &lt;b&gt;fungsionalitas yang ditingkatkan&lt;/b&gt; pada versi baru.</translation>
     </message>
     <message>
         <location filename="Windows/SupportDialog.cpp" line="203"/>
-        <source>Sandboxie &lt;u&gt;without&lt;/u&gt; a valid supporter certificate will sometimes &lt;b&gt;&lt;font color=&apos;red&apos;&gt;pause for a few seconds&lt;/font&gt;&lt;/b&gt;. This pause allows you to consider &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-obtain-cert&quot;&gt;purchasing a supporter certificate&lt;/a&gt; or &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-contribute&quot;&gt;earning one by contributing&lt;/a&gt; to the project. &lt;br /&gt;&lt;br /&gt;A &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt; not just removes this reminder, but also enables &lt;b&gt;exclusive enhanced functionality&lt;/b&gt; providing better security and compatibility.</source>
-        <oldsource>Sandboxie &lt;u&gt;without&lt;/u&gt; a valid supporter certificate will sometimes &lt;b&gt;&lt;font color=&apos;red&apos;&gt;pause for a few seconds&lt;/font&gt;&lt;/b&gt;, to give you time to contemplate the option of &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;supporting the project&lt;/a&gt;.&lt;br /&gt;&lt;br /&gt;A &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt; not just removes this reminder, but also enables &lt;b&gt;exclusive enhanced functionality&lt;/b&gt; providing better security and compatibility.</oldsource>
         <translation>Sandboxie &lt;u&gt;tanpa&lt;/u&gt; sertifikat pendukung yang valid terkadang akan &lt;b&gt;&lt;font color=&apos;red&apos;&gt;berhenti sejenak selama beberapa detik&lt;/font&gt;&lt;/b&gt;. Jeda ini memungkinkan Anda untuk mempertimbangkan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-obtain-cert&quot;&gt;membeli sertifikat pendukung&lt;/a&gt; atau &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-contribute&quot;&gt;memperolehnya dengan berkontribusi&lt;/a&gt; pada proyek. &lt;br /&gt;&lt;br /&gt;&lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;Sertifikat pendukung&lt;/a&gt; tidak hanya menghilangkan pengingat ini, tetapi juga memungkinkan &lt;b&gt;fungsionalitas eksklusif yang disempurnakan&lt;/b&gt; yang menyediakan keamanan dan kompatibilitas yang lebih baik.</translation>
     </message>
     <message>
@@ -8215,7 +8144,6 @@ Jika Anda sudah menjadi Great Supporter di Patreon, Sandboxie dapat memeriksa se
     </message>
     <message>
         <location filename="Forms/OptionsWindow.ui" line="276"/>
-        <source>&lt;b&gt;More Box Types&lt;/b&gt; are exclusively available to &lt;u&gt;project supporters&lt;/u&gt;, the Privacy Enhanced boxes &lt;b&gt;&lt;font color=&apos;red&apos;&gt;protect user data from illicit access&lt;/font&gt;&lt;/b&gt; by the sandboxed programs.&lt;br /&gt;If you are not yet a supporter, then please consider &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;supporting the project&lt;/a&gt;, to receive a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;.&lt;br /&gt;You can test the other box types by creating new sandboxes of those types, however processes in these will be auto terminated after 5 minutes.</source>
         <translation>&lt;b&gt;Lebih Banyak Tipe Kotak&lt;/b&gt; hanya tersedia untuk &lt;u&gt;pendukung proyek&lt;/u&gt;, kotak dengan Privasi Ditingkatkan &lt;b&gt;&lt;font color=&apos;red&apos;&gt;melindungi data pengguna dari akses ilegal&lt;/font&gt;&lt;/b&gt; oleh program dalam sandbox.&lt;br /&gt;Jika Anda belum menjadi pendukung, silakan pertimbangkan untuk &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-get-cert&quot;&gt;mendukung proyek ini&lt;/a&gt;, untuk menerima &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt;.&lt;br /&gt;Anda dapat menguji tipe kotak lain dengan membuat sandbox baru dengan tipe tersebut, namun proses di dalamnya akan otomatis dihentikan setelah 5 menit.</translation>
     </message>
     <message>
@@ -8646,7 +8574,6 @@ Ini dilakukan untuk mencegah proses jahat di dalam sandbox membuat salinan dirin
     <message>
         <location filename="Forms/OptionsWindow.ui" line="2394"/>
         <source>Programs entered here will be allowed to break out of this sandbox when they start. It is also possible to capture them into another sandbox, for example to have your web browser always open in a dedicated box.</source>
-        <oldsource>Programs entered here will be allowed to break out of this box when thay start, you can capture them into an other box. For example to have your web browser always open in a dedicated box. This feature requires a valid supporter certificate to be installed.</oldsource>
         <translation>Program yang dimasukkan di sini akan diizinkan keluar dari sandbox ini saat dijalankan. Anda juga dapat menangkapnya ke sandbox lain, misalnya agar browser web Anda selalu terbuka di kotak khusus.</translation>
     </message>
     <message>
@@ -9616,10 +9543,8 @@ Tingkat kecocokan proses memiliki prioritas lebih tinggi daripada spesifisitas d
     <message>
         <location filename="Forms/OptionsWindow.ui" line="5306"/>
         <source>Add user accounts and user groups to the list below to limit use of the sandbox to only those accounts.  If the list is empty, the sandbox can be used by all user accounts.
-
 Note:  Forced Programs and Force Folders settings for a sandbox do not apply to user accounts which cannot use the sandbox.</source>
         <translation>Tambahkan akun pengguna dan grup pengguna ke daftar di bawah ini untuk membatasi penggunaan sandbox hanya untuk akun tersebut. Jika daftar kosong, sandbox dapat digunakan oleh semua akun pengguna.
-
 Catatan: Pengaturan Program Paksa dan Folder Paksa untuk sandbox tidak berlaku untuk akun pengguna yang tidak dapat menggunakan sandbox.</translation>
     </message>
     <message>
@@ -9725,7 +9650,6 @@ Catatan: Pengaturan Program Paksa dan Folder Paksa untuk sandbox tidak berlaku u
     <message>
         <location filename="Forms/OptionsWindow.ui" line="5471"/>
         <source>Log all access events as seen by the driver to the resource access log.
-
 This options set the event mask to &quot;*&quot; - All access events
 You can customize the logging using the ini by specifying
 &quot;A&quot; - Allowed accesses
@@ -9733,7 +9657,6 @@ You can customize the logging using the ini by specifying
 &quot;I&quot; - Ignore access requests
 instead of &quot;*&quot;.</source>
         <translation>Catat semua peristiwa akses yang dilihat oleh driver ke log akses sumber daya.
-
 Opsi ini mengatur event mask ke &quot;*&quot; - Semua peristiwa akses
 Anda dapat menyesuaikan pencatatan menggunakan file ini dengan menentukan
 &quot;A&quot; - Akses yang diizinkan
@@ -9845,10 +9768,8 @@ sebagai pengganti &quot;*&quot;.</translation>
     <message>
         <location filename="Forms/OptionsWindow.ui" line="5922"/>
         <source>Configure the folder locations used by your other applications.
-
 Please note that this values are currently user specific and saved globally for all boxes.</source>
         <translation>Konfigurasikan lokasi folder yang digunakan oleh aplikasi Anda yang lain.
-
 Harap perhatikan bahwa nilai ini saat ini bersifat khusus pengguna dan disimpan secara global untuk semua kotak.</translation>
     </message>
     <message>
@@ -10537,12 +10458,10 @@ Harap perhatikan bahwa nilai ini saat ini bersifat khusus pengguna dan disimpan 
     </message>
     <message>
         <location filename="Forms/SettingsWindow.ui" line="1779"/>
-        <source>This supporter certificate has expired, please &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;get an updated certificate&lt;/a&gt;.</source>
         <translation>Sertifikat pendukung ini telah kedaluwarsa, silakan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-renew-cert&quot;&gt;dapatkan sertifikat yang diperbarui&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="Forms/SettingsWindow.ui" line="1846"/>
-        <source>Supporters of the Sandboxie-Plus project can receive a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;supporter certificate&lt;/a&gt;. It&apos;s like a license key but for awesome people using open source software. :-)</source>
         <translation>Pendukung proyek Sandboxie-Plus dapat menerima &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-cert&quot;&gt;sertifikat pendukung&lt;/a&gt;. Ini seperti kunci lisensi tetapi untuk orang-orang hebat yang menggunakan perangkat lunak sumber terbuka. :-)</translation>
     </message>
     <message>
@@ -10557,7 +10476,6 @@ Harap perhatikan bahwa nilai ini saat ini bersifat khusus pengguna dan disimpan 
     </message>
     <message>
         <location filename="Forms/SettingsWindow.ui" line="1814"/>
-        <source>Keeping Sandboxie up to date with the rolling releases of Windows and compatible with all web browsers is a never-ending endeavor. You can support the development by &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-contribute&quot;&gt;directly contributing to the project&lt;/a&gt;, showing your support by &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-obtain-cert&quot;&gt;purchasing a supporter certificate&lt;/a&gt;, becoming a patron by &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=patreon&quot;&gt;subscribing on Patreon&lt;/a&gt;, or through a &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=donate&quot;&gt;PayPal donation&lt;/a&gt;.&lt;br /&gt;Your support plays a vital role in the advancement and maintenance of Sandboxie.</source>
         <translation>Menjaga Sandboxie tetap up to date dengan rilis berkelanjutan Windows dan kompatibel dengan semua browser web adalah upaya yang tak ada habisnya. Anda dapat mendukung pengembangan dengan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-contribute&quot;&gt;berkontribusi langsung ke proyek&lt;/a&gt;, menunjukkan dukungan Anda dengan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=sbie-obtain-cert&quot;&gt;membeli sertifikat pendukung&lt;/a&gt;, menjadi patron dengan &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=patreon&quot;&gt;berlangganan di Patreon&lt;/a&gt;, atau melalui &lt;a href=&quot;https://sandboxie-plus.com/go.php?to=donate&quot;&gt;donasi PayPal&lt;/a&gt;.&lt;br /&gt;Dukungan Anda memainkan peran vital dalam kemajuan dan pemeliharaan Sandboxie.</translation>
     </message>
     <message>

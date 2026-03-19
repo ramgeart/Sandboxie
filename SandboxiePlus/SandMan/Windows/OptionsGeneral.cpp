@@ -19,20 +19,14 @@ public:
 	{
 		m_bAdvanced = bAdvanced;
 		setPixmap(QPixmap(":/Actions/Cert.png").scaled(16, 16, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-		if(bAdvanced)
-			setToolTip(COptionsWindow::tr("This option requires an active <b>advanced</b> supporter certificate"));
-		else
-			setToolTip(COptionsWindow::tr("This option requires an active supporter certificate"));
+		setToolTip(COptionsWindow::tr("This option is available in all editions")); // Certificate requirement removed
 		setCursor(Qt::PointingHandCursor);
 	}
 
 protected:
 	void mousePressEvent(QMouseEvent* event)
 	{
-		if(m_bAdvanced && g_CertInfo.active)
-			theGUI->OpenUrl(QUrl("https://sandboxie-plus.com/go.php?to=sbie-upgrade-cert"));
-		else
-			theGUI->OpenUrl(QUrl("https://sandboxie-plus.com/go.php?to=sbie-get-cert"));
+		theGUI->OpenUrl(QUrl("https://sandboxie-plus.com")); // Certificate URL removed
 	}
 	bool m_bAdvanced;
 };

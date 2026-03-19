@@ -152,8 +152,8 @@ void CSupportDialog::UpdateButtons()
 			switch (pButton->property("Action").toInt()) {
 			case 0:	pButton->setText(tr("Quit")); break;
 			case 1:	pButton->setText(tr("Continue")); break;
-			case 2: pButton->setText(tr("Get Certificate")); break;
-			case 3: pButton->setText(tr("Enter Certificate")); break;
+			case 2: pButton->setText(tr("Continue")); break; // Certificate option removed
+			case 3: pButton->setText(tr("Continue")); break; // Certificate option removed
 			}
 		}
 	}
@@ -167,27 +167,12 @@ void CSupportDialog::OnButton()
 		CSettingsWindow* pSettingsWindow = new CSettingsWindow(this);
 		pSettingsWindow->showTab("Support", true);
 		connect(pSettingsWindow, &CSettingsWindow::Closed, [this]() {
-#ifdef INSIDER_BUILD
-			if (g_CertInfo.active && !CERT_IS_INSIDER(g_CertInfo)) {
-				TArguments args = GetArguments(g_Certificate, L'\n', L':');
-				if (args.value("TYPE").contains("PATREON")) {
-					theGUI->m_pUpdater->UpdateCert(true);
-					if (CERT_IS_INSIDER(g_CertInfo)) {
-						accept();
-						return;
-					}
-				}
-
-				QMessageBox::warning(this, "Sandboxie-Plus", tr("This Insider build requires a special certificate of type GREAT_PATREON, PERSONAL-HUGE, or CONTRIBUTOR."));
-				return;
-			}
-#endif
-			if (g_CertInfo.active)
-				accept();
+			// Certificate check removed - all features are now free
+			accept();
 		});
 	}
 	else if (Action == 2) 
-		return theGUI->OpenUrl(QUrl("https://sandboxie-plus.com/go.php?to=sbie-get-cert"));
+		return theGUI->OpenUrl(QUrl("https://sandboxie-plus.com")); // Certificate URL removed
 	else if (Action == 1)
 		accept();
 	else

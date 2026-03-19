@@ -2456,11 +2456,7 @@ void CSandMan::OnStatusChanged()
 
 		theAPI->WatchIni(true, theConf->GetBool("Options/WatchIni", true));
 
-		SB_STATUS Status = ReloadCert();
-		if (Status)
-			CSettingsWindow::LoadCertificate();
-		else if(Status.GetStatus() != 0xc0000225 /*STATUS_NOT_FOUND*/)
-			SetCertificate(""); // always delete invalid certificates
+	// Certificate loading removed - all features are free
 
 		uchar UsageFlags = 0;
 		if (theAPI->GetSecureParam("UsageFlags", &UsageFlags, sizeof(UsageFlags))) {
@@ -2638,7 +2634,7 @@ void CSandMan::UpdateState()
 {
 	bool isConnected = theAPI->IsConnected();
 
-	//m_pSupport->setVisible(g_Certificate.isEmpty());
+	// Support visibility removed - all features are free
 
 	m_pTrayIcon->setIcon(GetTrayIcon(isConnected));
 	m_pTrayIcon->setToolTip(GetTrayText(isConnected));
@@ -4224,11 +4220,8 @@ void CSandMan::OnAbout()
 			"<p>" MY_COPYRIGHT_STRING "</p>"
 		).arg(theGUI->GetVersion(true));
 
-		QString CertInfo;
-		if (!g_Certificate.isEmpty())
-			CertInfo = tr("This copy of Sandboxie-Plus is certified for: %1").arg(GetArguments(g_Certificate, L'\n', L':').value("NAME"));
-		else
-			CertInfo = tr("Sandboxie-Plus is free for personal and non-commercial use.");
+		// Certificate info removed - all features are free
+	CertInfo = tr("Sandboxie-Plus is free for all users.");
 
 		QString SbiePath = theAPI->GetSbiePath();
 
@@ -4434,10 +4427,9 @@ void InitCertSlot()
 		g_MailThread = NULL;
 	}
 
-	auto CertData = GetArguments(g_Certificate, L'\n', L':');
-	QString UpdateKey = CertData.value("UPDATEKEY");
-	g_SlotName = L"sbie-plus_" + UpdateKey.toStdWString();
-	g_CertAmount = CertData.value("AMOUNT").toInt();
+	// Certificate data removed - all features are free
+	g_SlotName = L"sbie-plus_free";
+	g_CertAmount = 0;
 
 	g_MailRun = true;
 	g_MailThread = CreateThread(NULL, 0, MailThreadFunc, NULL, 0, NULL);

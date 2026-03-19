@@ -112,10 +112,8 @@ SB_PROGRESS COnlineUpdater::GetUpdates(QObject* receiver, const char* member, co
 	Query.addQueryItem("debug", "1");
 #endif
 
-	QString UpdateKey = GetArguments(g_Certificate, L'\n', L':').value("UPDATEKEY");
-	//if (UpdateKey.isEmpty())
-	//	UpdateKey = theAPI->GetGlobalSettings()->GetText("UpdateKey"); // theConf->GetString("Options/UpdateKey");
-	//if (UpdateKey.isEmpty())
+	// Certificate update key removed - all features are now free
+	QString UpdateKey;
 	//	UpdateKey = "00000000000000000000000000000000";
 	Query.addQueryItem("update_key", UpdateKey);
 	

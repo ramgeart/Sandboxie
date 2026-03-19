@@ -3,17 +3,11 @@ Copyright 2020 - 2025 David Xanatos (xanasoft.com)
 Sandboxie-Plus can be used under the following restrictions and obligations:
 
    1. Whomever obtains a copy of the software is permitted
-      to use it in any noncommercial setting to the full
-      extent the software permits; however certain functionality
-      is only available with a support certificate which
-      can be obtained from xanasoft.com
+      to use it in any noncommercial or commercial setting to the full
+      extent the software permits; all functionality is available
+      without restrictions.
 
-   2. To use the software commercially a business certificate
-      must be obtained from xanasoft.com; however it is permitted to
-      use the software commercially for a limited period of time
-      on no more than 3 machines for evaluation purposes.
-
-   3. It is permitted to redistribute the original unmodified
+   2. It is permitted to redistribute the original unmodified
       binaries free of charge.
 
 
@@ -38,8 +32,8 @@ Usage of the source code:
            prohibit any distribution of unofficial binaries on his own
            discretion.
 
-   4. Using self-compiled binaries for commercial use is only permitted
-      when an appropriate commercial use certificate has been obtained.
+   4. Using self-compiled binaries for commercial use is permitted
+      without additional restrictions.
 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
