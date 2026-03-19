@@ -34,7 +34,7 @@ UsedUserAreasWarning=no
 VersionInfoCopyright=Copyright (C) 2020-{#CurrentYear} by David Xanatos (xanasoft.com)
 VersionInfoVersion={#MyAppVersion}
 SetupIconFile=SandManInstall.ico
-SignTool=sha256
+;SignTool=sha256
 ; Require windows 10 or later
 ;MinVersion=10.0
 
