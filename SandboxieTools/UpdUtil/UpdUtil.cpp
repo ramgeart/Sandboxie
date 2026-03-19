@@ -1635,7 +1635,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		return ret;
 	}
-	else if (arguments.size() >= 2 && (arguments[0] == L"get_cert" || arguments[0] == L"get_cert_lr"))
+// Certificate retrieval commands removed - all features are free
+else if (false) // Disabled: get_cert functionality
 	{
 		int ret = 0;
 

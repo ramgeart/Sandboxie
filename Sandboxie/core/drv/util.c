@@ -533,21 +533,7 @@ _FX BOOLEAN MyIsCallerSigned(void)
     if (Driver_OsTestSigning)
         return TRUE;
 
-    // if this is a node locked develoepr certificate don't verify the signature
-    if (Verify_CertInfo.type == eCertDeveloper && Verify_CertInfo.active)
-        return TRUE;
-
-    status = KphVerifyCurrentProcess();
-
-    //DbgPrint("Image Signature Verification result: 0x%08x\r\n", status);
-
-    if (!NT_SUCCESS(status)) {
-
-        //Log_Status(MSG_1330, 0, status);
-
-        return FALSE;
-    }
-
+    // Certificate verification disabled - all features are free
     return TRUE;
 }
 

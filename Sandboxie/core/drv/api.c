@@ -1192,8 +1192,16 @@ _FX NTSTATUS Api_QueryDriverInfo(PROCESS* proc, ULONG64* parms)
             ULONG *data = args->info_data.val;
             ProbeForWrite(data, sizeof(ULONG), sizeof(ULONG));
 
-            ULONG FeatureFlags = 0;
+            // All features are always enabled - no certificate required
+            ULONG FeatureFlags = SBIE_FEATURE_FLAG_CERTIFIED
+                              | SBIE_FEATURE_FLAG_SECURITY_MODE
+                              | SBIE_FEATURE_FLAG_PRIVACY_MODE  
+                              | SBIE_FEATURE_FLAG_COMPARTMENTS
+                              | SBIE_FEATURE_FLAG_ENCRYPTION
+                              | SBIE_FEATURE_FLAG_NET_PROXY
+                              | SBIE_FEATURE_FLAG_NO_SIG;
 
+            // Add system-dependent features
             extern BOOLEAN WFP_Enabled;
             if (WFP_Enabled)
                 FeatureFlags |= SBIE_FEATURE_FLAG_WFP;
@@ -1210,28 +1218,8 @@ _FX NTSTATUS Api_QueryDriverInfo(PROCESS* proc, ULONG64* parms)
                 FeatureFlags |= SBIE_FEATURE_FLAG_WIN32K_HOOK;
 #endif
 
-            if (Verify_CertInfo.active)
-                FeatureFlags |= SBIE_FEATURE_FLAG_CERTIFIED;
-
-            if (Verify_CertInfo.opt_sec) {
-                FeatureFlags |= SBIE_FEATURE_FLAG_SECURITY_MODE;
-                FeatureFlags |= SBIE_FEATURE_FLAG_PRIVACY_MODE;
-                FeatureFlags |= SBIE_FEATURE_FLAG_COMPARTMENTS;
-            }
-
-            if (Verify_CertInfo.opt_enc)
-                FeatureFlags |= SBIE_FEATURE_FLAG_ENCRYPTION;
-
-            if (Verify_CertInfo.opt_net)
-                FeatureFlags |= SBIE_FEATURE_FLAG_NET_PROXY;
-
-            if (Verify_CertInfo.type == eCertDeveloper)
-                FeatureFlags |= SBIE_FEATURE_FLAG_NO_SIG;
-
             if (Dyndata_Active) {
-
                 FeatureFlags |= SBIE_FEATURE_FLAG_DYNDATA_OK;
-
                 if (Dyndata_Config.Flags & DYNDATA_FLAG_EXP)
                     FeatureFlags |= SBIE_FEATURE_FLAG_DYNDATA_EXP;
             }
