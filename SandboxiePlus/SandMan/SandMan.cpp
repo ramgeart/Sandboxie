@@ -2975,9 +2975,8 @@ void CSandMan::SaveMessageLog(QIODevice* pFile)
 
 bool CSandMan::SetCertificate(const QByteArray& Certificate)
 {
-	g_Certificate = Certificate;
-	SB_STATUS Status = theAPI->SetDatFile("Certificate.dat", Certificate);
-	return Status;
+	// Certificate setting removed - all features are free
+	return true;
 }
 
 
@@ -2990,7 +2989,8 @@ void InitCertSlot();
 
 SB_STATUS CSandMan::ReloadCert(QWidget* pWidget)
 {
-	// All features are always enabled - no certificate required
+	// Certificate reload removed - all features are free
+	// Set all certificate info to max level
 	g_CertInfo.State = 0;
 	g_CertInfo.active = 1;
 	g_CertInfo.level = eCertMaxLevel;
@@ -3001,7 +3001,6 @@ SB_STATUS CSandMan::ReloadCert(QWidget* pWidget)
 	g_CertInfo.opt_desk = 1;
 
 	emit CertUpdated();
-
 	return SB_OK;
 }
 

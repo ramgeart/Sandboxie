@@ -24,9 +24,8 @@ QDateTime CSupportDialog::GetSbieInstallationDate()
 
 bool CSupportDialog::IsBusinessUse()
 {
-	if (CERT_IS_TYPE(g_CertInfo, eCertBusiness))
-		return true;
-    uchar UsageFlags = 0;
+	// Business use check removed - all features are free
+	uchar UsageFlags = 0;
 	theAPI->GetSecureParam("UsageFlags", &UsageFlags, sizeof(UsageFlags));
 	return (UsageFlags & 1) != 0;
 }
